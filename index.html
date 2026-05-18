@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title id="pageTitle">EPICUR CONCEPT</title>
 <meta name="description" content="Cigarros, rones, café y más. Una experiencia boutique. Santo Domingo, RD.">
-<link rel="stylesheet" href="css/global.css">
+<link rel="stylesheet" href="global.css">
 <style>
 /* ── AGE GATE ── */
 #age-gate { position:fixed; inset:0; z-index:9999; background:#060402; display:flex; align-items:center; justify-content:center; transition:opacity .7s ease; }
@@ -25,7 +25,7 @@
 /* ── HERO ── */
 #hero { min-height:100vh; position:relative; display:flex; align-items:center; overflow:hidden; }
 .hero-bg { position:absolute; inset:0; background:radial-gradient(ellipse at 65% 35%,rgba(90,53,34,.5) 0%,transparent 55%),radial-gradient(ellipse at 15% 75%,rgba(46,58,45,.28) 0%,transparent 50%),linear-gradient(140deg,#0a0806 0%,#160d06 45%,#0a0806 100%); }
-.hero-photo { position:absolute; inset:0; background:url('images/img_salon1.png') center/cover no-repeat; opacity:.15; filter:sepia(.4) contrast(1.1); }
+.hero-photo { position:absolute; inset:0; background:url('img_salon1.png') center/cover no-repeat; opacity:.15; filter:sepia(.4) contrast(1.1); }
 .hero-vignette { position:absolute; inset:0; background:linear-gradient(to right,rgba(10,8,6,.94) 0%,rgba(10,8,6,.6) 55%,rgba(10,8,6,.9) 100%),linear-gradient(to top,rgba(10,8,6,.75) 0%,transparent 50%); }
 .hero-grain { position:absolute; inset:0; pointer-events:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E"); opacity:.7; }
 .hero-content { position:relative; z-index:5; padding:120px 60px 80px; max-width:720px; animation:fadeUp 1.2s ease both; }
@@ -83,7 +83,7 @@
 
 /* ── QUOTE ── */
 #quote { position:relative; overflow:hidden; }
-.quote-bg { position:absolute; inset:0; background:url('images/img_ron_1903.png') center/cover no-repeat; filter:brightness(.18) sepia(.5); }
+.quote-bg { position:absolute; inset:0; background:url('img_ron_1903.png') center/cover no-repeat; filter:brightness(.18) sepia(.5); }
 .quote-inner { position:relative; z-index:2; padding:110px 60px; max-width:860px; margin:0 auto; text-align:center; }
 .q-rule-top { width:1px; height:56px; background:linear-gradient(to bottom,transparent,var(--gold)); margin:0 auto 36px; }
 .q-mark { font-family:var(--serif); font-size:5rem; color:rgba(192,154,98,.35); line-height:1; margin-bottom:-16px; display:block; }
@@ -93,7 +93,7 @@
 
 /* ── EXPERIENCE ── */
 #experience { padding:110px 60px; background:var(--tobacco); position:relative; overflow:hidden; }
-#experience::before { content:''; position:absolute; top:0; right:0; bottom:0; width:40%; background:url('images/img_salon2.png') center/cover no-repeat; opacity:.09; filter:sepia(.4); }
+#experience::before { content:''; position:absolute; top:0; right:0; bottom:0; width:40%; background:url('img_salon2.png') center/cover no-repeat; opacity:.09; filter:sepia(.4); }
 .exp-grid { max-width:1180px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; position:relative; z-index:2; }
 .exp-pull { font-family:var(--serif); font-size:clamp(1.8rem,3.5vw,3.2rem); font-style:italic; font-weight:300; color:var(--beige); line-height:1.25; padding-left:28px; border-left:2px solid rgba(192,154,98,.35); }
 .exp-items { display:grid; grid-template-columns:1fr 1fr; gap:32px; }
@@ -184,7 +184,6 @@
 </head>
 <body>
 
-<!-- AGE GATE -->
 <div id="age-gate">
   <div class="ag-box">
     <div class="ag-logo">EPICUR</div>
@@ -198,28 +197,25 @@
   </div>
 </div>
 
-<!-- MOBILE MENU -->
 <div id="mob-menu">
   <button class="mob-close" onclick="closeMenu()">&times;</button>
   <a href="index.html" onclick="closeMenu()">Inicio</a>
-  <a href="catalogo/catalogo.html" onclick="closeMenu()">Cat&aacute;logo</a>
-  <a href="blog/blog.html" onclick="closeMenu()">Blog</a>
+  <a href="catalogo.html" onclick="closeMenu()">Cat&aacute;logo</a>
+  <a href="blog.html" onclick="closeMenu()">Blog</a>
   <a href="#contacto" onclick="closeMenu()">Contacto</a>
 </div>
 
-<!-- NAV -->
 <nav id="navbar">
   <a href="index.html" class="nav-logo">EPICUR</a>
   <ul class="nav-links">
     <li><a href="index.html" class="active">Inicio</a></li>
-    <li><a href="catalogo/catalogo.html">Cat&aacute;logo</a></li>
-    <li><a href="blog/blog.html">Blog</a></li>
+    <li><a href="catalogo.html">Cat&aacute;logo</a></li>
+    <li><a href="blog.html">Blog</a></li>
     <li><a href="#contacto">Contacto</a></li>
   </ul>
   <button class="hamburger" onclick="toggleMenu()" aria-label="Men&uacute;"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- HERO -->
 <section id="inicio">
   <div id="hero">
     <div class="hero-bg"></div><div class="hero-photo"></div>
@@ -229,7 +225,7 @@
       <h1 class="hero-title" id="heroTitle">Un rinc&oacute;n para<br><em>los sentidos</em></h1>
       <p class="hero-sub" id="heroSub">Cigarros, rones, caf&eacute; y m&aacute;s, reunidos en una experiencia pensada para disfrutar con calma.</p>
       <div class="hero-btns">
-        <a href="catalogo/catalogo.html" class="btn-gold" id="heroBtnP">Explorar cat&aacute;logo</a>
+        <a href="catalogo.html" class="btn-gold" id="heroBtnP">Explorar cat&aacute;logo</a>
         <a href="#concept" class="btn-outline" id="heroBtnS">Conocer la historia</a>
       </div>
     </div>
@@ -237,7 +233,6 @@
   </div>
 </section>
 
-<!-- CONCEPT -->
 <section id="concept">
   <div class="concept-grid">
     <div class="reveal">
@@ -246,7 +241,7 @@
       <h2 class="concept-title" id="conceptTitle">Cada producto tiene una <em>historia</em></h2>
       <p class="concept-text" id="conceptText1"></p>
       <p class="concept-text" id="conceptText2"></p>
-      <a href="catalogo/catalogo.html" class="btn-gold">Ver la colecci&oacute;n</a>
+      <a href="catalogo.html" class="btn-gold">Ver la colecci&oacute;n</a>
       <div class="concept-stats">
         <div class="cs-item"><div class="cs-num" id="stat1n">8+</div><div class="cs-lbl" id="stat1l">Marcas curadas</div></div>
         <div class="cs-item"><div class="cs-num" id="stat2n">5</div><div class="cs-lbl" id="stat2l">Categor&iacute;as</div></div>
@@ -254,30 +249,27 @@
       </div>
     </div>
     <div class="concept-visual reveal d1">
-      <img src="images/img_jack_honey2.png" alt="Epicur Concept">
+      <img src="img_jack_honey2.png" alt="Epicur Concept">
       <div class="concept-badge">&ldquo;El ritual<br>del tiempo.&rdquo;</div>
     </div>
   </div>
 </section>
 
-<!-- CATALOG PREVIEW -->
 <section id="catalogo">
   <div class="cat-header reveal">
     <div>
       <span class="cat-label">Obras seleccionadas</span>
       <h2 class="cat-title">Cat&aacute;logo premium</h2>
     </div>
-    <a href="catalogo/catalogo.html" class="btn-outline" style="padding:10px 28px;font-size:.55rem">Ver todo</a>
+    <a href="catalogo.html" class="btn-outline" style="padding:10px 28px;font-size:.55rem">Ver todo</a>
   </div>
   <div class="products-grid" id="productsGrid">
-    <!-- skeleton -->
     <div class="p-card"><div class="skeleton" style="width:100%;height:100%"></div></div>
     <div class="p-card"><div class="skeleton" style="width:100%;height:100%"></div></div>
     <div class="p-card"><div class="skeleton" style="width:100%;height:100%"></div></div>
   </div>
 </section>
 
-<!-- QUOTE -->
 <section id="quote">
   <div class="quote-bg"></div>
   <div class="quote-inner reveal">
@@ -289,7 +281,6 @@
   </div>
 </section>
 
-<!-- EXPERIENCE -->
 <section id="experience">
   <div class="exp-grid">
     <div class="reveal">
@@ -306,17 +297,15 @@
   </div>
 </section>
 
-<!-- SALON -->
 <div id="salon">
-  <div class="s-panel"><img src="images/img_salon1.png" alt="El espacio Epicur"><div class="s-label"><span>El espacio</span><h3>El sal&oacute;n del coleccionista</h3></div></div>
-  <div class="s-panel"><img src="images/img_salon2.png" alt="La atmosfera Epicur"><div class="s-label"><span>La atm&oacute;sfera</span><h3>Arte, libros y tabaco</h3></div></div>
+  <div class="s-panel"><img src="img_salon1.png" alt="El espacio Epicur"><div class="s-label"><span>El espacio</span><h3>El sal&oacute;n del coleccionista</h3></div></div>
+  <div class="s-panel"><img src="img_salon2.png" alt="La atmosfera Epicur"><div class="s-label"><span>La atm&oacute;sfera</span><h3>Arte, libros y tabaco</h3></div></div>
 </div>
 
-<!-- BLOG PREVIEW -->
 <section id="blog">
   <div class="blog-header reveal">
     <div><span class="sec-label">Editorial</span><h2 class="blog-title">Cultura &amp; Experiencia</h2></div>
-    <a href="blog/blog.html" class="btn-outline" style="padding:10px 28px;font-size:.55rem">Ver todos</a>
+    <a href="blog.html" class="btn-outline" style="padding:10px 28px;font-size:.55rem">Ver todos</a>
   </div>
   <div class="blog-grid" id="blogGrid">
     <div class="b-card"><div class="b-img skeleton" style="aspect-ratio:16/10"></div><div class="b-body"><div class="skeleton" style="height:14px;margin-bottom:10px;width:60%"></div><div class="skeleton" style="height:14px;width:90%"></div></div></div>
@@ -325,7 +314,6 @@
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contacto">
   <div class="contact-grid">
     <div class="reveal">
@@ -366,7 +354,6 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
@@ -382,16 +369,16 @@
       <div>
         <div class="f-col-title">Cat&aacute;logo</div>
         <ul class="f-links">
-          <li><a href="catalogo/catalogo.html">Todos los productos</a></li>
-          <li><a href="catalogo/catalogo.html?cat=cigarros">Cigarros</a></li>
-          <li><a href="catalogo/catalogo.html?cat=rones">Rones</a></li>
-          <li><a href="catalogo/catalogo.html?cat=cafe">Caf&eacute;</a></li>
+          <li><a href="catalogo.html">Todos los productos</a></li>
+          <li><a href="catalogo.html?cat=cigarros">Cigarros</a></li>
+          <li><a href="catalogo.html?cat=rones">Rones</a></li>
+          <li><a href="catalogo.html?cat=cafe">Caf&eacute;</a></li>
         </ul>
       </div>
       <div>
         <div class="f-col-title">Editorial</div>
         <ul class="f-links">
-          <li><a href="blog/blog.html">Todos los art&iacute;culos</a></li>
+          <li><a href="blog.html">Todos los art&iacute;culos</a></li>
         </ul>
       </div>
       <div>
@@ -414,8 +401,8 @@
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
 </a>
 
-<script src="js/sheets.js"></script>
-<script src="js/global.js"></script>
+<script src="sheets.js"></script>
+<script src="global.js"></script>
 <script>
   // ── Age gate ──────────────────────────────
   document.body.style.overflow = 'hidden';
@@ -482,7 +469,7 @@
       const catLabels = { cigarros:'Cigarros', rones:'Rones', cafe:'Café', cervezas:'Cervezas', frutos:'Frutos Secos', miel:'Miel' };
       document.getElementById('productsGrid').innerHTML = top.map((p, i) => `
         <div class="p-card reveal">
-          <img src="${p.imagen.startsWith('http') ? p.imagen : 'images/' + p.imagen.split('/').pop()}" alt="${p.nombre}" loading="lazy">
+          <img src="${p.imagen.startsWith('http') ? p.imagen : p.imagen.split('/').pop()}" alt="${p.nombre}" loading="lazy">
           <div class="p-overlay"></div>
           <div class="p-num">0${i+1}</div>
           <div class="p-tag">${catLabels[p.categoria] || p.categoria}</div>
@@ -498,9 +485,9 @@
 
       // Blog preview (top 3)
       document.getElementById('blogGrid').innerHTML = articulos.slice(0, 3).map(a => `
-        <div class="b-card reveal" onclick="location.href='blog/articulo.html?id=${a.id}'">
+        <div class="b-card reveal" onclick="location.href='articulo.html?id=${a.id}'">
           <div class="b-img">
-            <img src="${a.imagen.startsWith('http') ? a.imagen : 'images/' + a.imagen.split('/').pop()}" alt="${a.titulo}" loading="lazy">
+            <img src="${a.imagen.startsWith('http') ? a.imagen : a.imagen.split('/').pop()}" alt="${a.titulo}" loading="lazy">
             <div class="b-cat-badge">${a.categoria}</div>
           </div>
           <div class="b-body">

@@ -28,7 +28,7 @@
 
 const SHEETS_CONFIG = {
   // ↓↓ PEGA AQUÍ EL ID DE TU GOOGLE SHEET ↓↓
-  SPREADSHEET_ID: 'TU_SPREADSHEET_ID_AQUI',
+  SPREADSHEET_ID: '1HJuO2B_u-KN9T9tUFhYdduiNtqnNjDmDlUNY2LENUx0',
 
   // Nombres exactos de cada pestaña en el Sheet
   SHEETS: {

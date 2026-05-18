@@ -424,84 +424,159 @@
         EpicurCMS.getBlog()
       ]);
 
-      // Config
-      const wa = ctc.whatsapp || cfg.whatsapp;
-      document.title = `${cfg.nombre} — Un rincón para los sentidos`;
+      // --- CONFIG & FOOTER ---
+      const wa = (ctc && ctc.whatsapp) || (cfg && cfg.whatsapp) || '18090000000';
+      const anio = (cfg && cfg.anio) || new Date().getFullYear();
+      const nombre = (cfg && cfg.nombre) || 'EPICUR CONCEPT';
+      const ciudad = (cfg && cfg.ciudad) || 'Santo Domingo';
+
+      document.title = `${nombre} — Un rincón para los sentidos`;
       document.querySelectorAll('[data-wa]').forEach(el => el.href = `https://wa.me/${wa}`);
-      document.getElementById('fCopy').textContent = `© ${cfg.anio} ${cfg.nombre} · ${cfg.ciudad}`;
-      if (cfg.instagram) document.getElementById('fIg').href = `https://instagram.com/${cfg.instagram.replace('@','')}`;
-      if (cfg.facebook)  document.getElementById('fFb').href = cfg.facebook;
-      document.getElementById('fWa').href = `https://wa.me/${wa}`;
+      
+      const copyEl = document.getElementById('fCopy');
+      if(copyEl) copyEl.textContent = `© ${anio} ${nombre} · ${ciudad}`;
+      
+      const fIg = document.getElementById('fIg');
+      if (fIg && cfg && cfg.instagram) fIg.href = `https://instagram.com/${cfg.instagram.replace('@','')}`;
+      
+      const fFb = document.getElementById('fFb');
+      if (fFb && cfg && cfg.facebook) fFb.href = cfg.facebook;
 
-      // Hero
-      document.getElementById('heroEyebrow').textContent = hero.eyebrow;
-      document.getElementById('heroTitle').innerHTML = hero.titulo.replace(' para', '<br>para');
-      document.getElementById('heroSub').textContent = hero.subtitulo;
-      if (hero.btn_principal)  document.getElementById('heroBtnP').textContent = hero.btn_principal;
-      if (hero.btn_secundario) document.getElementById('heroBtnS').textContent = hero.btn_secundario;
+      const fWa = document.getElementById('fWa');
+      if(fWa) fWa.href = `https://wa.me/${wa}`;
 
-      // Concept
-      const ct = hero.concepto_titulo.split(' una ');
-      document.getElementById('conceptTitle').innerHTML = ct.length > 1
-        ? `${ct[0]} una <em>${ct[1]}</em>` : hero.concepto_titulo;
-      if (hero.concepto_texto1) document.getElementById('conceptText1').textContent = hero.concepto_texto1;
-      if (hero.concepto_texto2) document.getElementById('conceptText2').textContent = hero.concepto_texto2;
-      document.getElementById('stat1n').textContent = hero.stat1_num;
-      document.getElementById('stat1l').textContent = hero.stat1_lbl;
-      document.getElementById('stat2n').textContent = hero.stat2_num;
-      document.getElementById('stat2l').textContent = hero.stat2_lbl;
-      document.getElementById('stat3n').textContent = hero.stat3_num;
-      document.getElementById('stat3l').textContent = hero.stat3_lbl;
+      // --- HERO ---
+      if(hero) {
+        const hEyebrow = document.getElementById('heroEyebrow');
+        if(hEyebrow) hEyebrow.textContent = hero.eyebrow || 'Santo Domingo';
+        
+        const hTitle = document.getElementById('heroTitle');
+        if(hTitle) hTitle.innerHTML = (hero.titulo || 'Un rincón para los sentidos').replace(' para', '<br>para');
+        
+        const hSub = document.getElementById('heroSub');
+        if(hSub) hSub.textContent = hero.subtitulo || '';
+        
+        const hBtnP = document.getElementById('heroBtnP');
+        if (hBtnP && hero.btn_principal) hBtnP.textContent = hero.btn_principal;
+        
+        const hBtnS = document.getElementById('heroBtnS');
+        if (hBtnS && hero.btn_secundario) hBtnS.textContent = hero.btn_secundario;
 
-      // Quote
-      document.getElementById('quoteText').textContent = frase.texto;
-      document.getElementById('quoteAuthor').textContent = frase.autor;
+        // --- CONCEPT ---
+        const conceptTitleEl = document.getElementById('conceptTitle');
+        if (conceptTitleEl) {
+           const cTit = hero.concepto_titulo || 'Cada producto tiene una historia';
+           const ctParts = cTit.split(' una ');
+           conceptTitleEl.innerHTML = ctParts.length > 1 ? `${ctParts[0]} una <em>${ctParts[1]}</em>` : cTit;
+        }
 
-      // Contact
-      document.getElementById('ctcTitle').innerHTML = ctc.titulo;
-      document.getElementById('ctcWaBtn').href = `https://wa.me/${wa}`;
-      document.getElementById('ctcUbicacion').textContent = ctc.ubicacion;
-      document.getElementById('ctcHorario').textContent = ctc.horario;
-      document.getElementById('ctcInstagram').textContent = ctc.instagram;
+        const cText1 = document.getElementById('conceptText1');
+        if(cText1) cText1.textContent = hero.concepto_texto1 || '';
+        
+        const cText2 = document.getElementById('conceptText2');
+        if(cText2) cText2.textContent = hero.concepto_texto2 || '';
+        
+        const s1n = document.getElementById('stat1n'); if(s1n) s1n.textContent = hero.stat1_num || '8+';
+        const s1l = document.getElementById('stat1l'); if(s1l) s1l.textContent = hero.stat1_lbl || 'Marcas curadas';
+        const s2n = document.getElementById('stat2n'); if(s2n) s2n.textContent = hero.stat2_num || '5';
+        const s2l = document.getElementById('stat2l'); if(s2l) s2l.textContent = hero.stat2_lbl || 'Categorías';
+        const s3n = document.getElementById('stat3n'); if(s3n) s3n.textContent = hero.stat3_num || 'RD';
+        const s3l = document.getElementById('stat3l'); if(s3l) s3l.textContent = hero.stat3_lbl || 'Santo Domingo';
+      }
 
-      // Catalog preview (top 6 destacados)
-      const top = productos.slice(0, 6);
-      const catLabels = { cigarros:'Cigarros', rones:'Rones', cafe:'Café', cervezas:'Cervezas', frutos:'Frutos Secos', miel:'Miel' };
-      document.getElementById('productsGrid').innerHTML = top.map((p, i) => `
-        <div class="p-card reveal">
-          <img src="${p.imagen.startsWith('http') ? p.imagen : p.imagen.split('/').pop()}" alt="${p.nombre}" loading="lazy">
-          <div class="p-overlay"></div>
-          <div class="p-num">0${i+1}</div>
-          <div class="p-tag">${catLabels[p.categoria] || p.categoria}</div>
-          <div class="p-info">
-            <div class="p-origin">${p.origen}</div>
-            <div class="p-name">${p.nombre}</div>
-            <div class="p-desc">${p.descripcion}</div>
-            ${p.precio ? `<div class="p-price">${p.precio}</div>` : ''}
-            <a href="https://wa.me/${wa}?text=${encodeURIComponent('Hola, me interesa: ' + p.nombre)}" class="btn-card" target="_blank">Consultar</a>
+      // --- QUOTE ---
+      if(frase) {
+        const qText = document.getElementById('quoteText');
+        if(qText) qText.textContent = frase.texto || '';
+        
+        const qAuth = document.getElementById('quoteAuthor');
+        if(qAuth) qAuth.textContent = frase.autor || '';
+      }
+
+      // --- CONTACT ---
+      if(ctc) {
+        const cTitle = document.getElementById('ctcTitle');
+        if(cTitle) cTitle.innerHTML = ctc.titulo || '¿Buscas una selección especial?';
+        
+        const cBtn = document.getElementById('ctcWaBtn');
+        if(cBtn) cBtn.href = `https://wa.me/${wa}`;
+        
+        const cUbi = document.getElementById('ctcUbicacion');
+        if(cUbi) cUbi.textContent = ctc.ubicacion || '';
+        
+        const cHor = document.getElementById('ctcHorario');
+        if(cHor) cHor.textContent = ctc.horario || '';
+        
+        const cIg = document.getElementById('ctcInstagram');
+        if(cIg) cIg.textContent = ctc.instagram || '';
+      }
+
+      // --- CATALOG PREVIEW ---
+      const pGrid = document.getElementById('productsGrid');
+      if(pGrid && productos && productos.length > 0) {
+        const top = productos.slice(0, 6);
+        const catLabels = { cigarros:'Cigarros', rones:'Rones', cafe:'Café', cervezas:'Cervezas', frutos:'Frutos Secos', miel:'Miel' };
+        
+        pGrid.innerHTML = top.map((p, i) => {
+          let imgPath = '';
+          if(p.imagen) {
+             imgPath = p.imagen.startsWith('http') ? p.imagen : p.imagen.split('/').pop();
+          }
+
+          return `
+          <div class="p-card reveal">
+            <img src="${imgPath}" alt="${p.nombre || 'Producto'}" loading="lazy">
+            <div class="p-overlay"></div>
+            <div class="p-num">0${i+1}</div>
+            <div class="p-tag">${catLabels[p.categoria] || p.categoria || ''}</div>
+            <div class="p-info">
+              <div class="p-origin">${p.origen || ''}</div>
+              <div class="p-name">${p.nombre || ''}</div>
+              <div class="p-desc">${p.descripcion || ''}</div>
+              ${p.precio ? `<div class="p-price">${p.precio}</div>` : ''}
+              <a href="https://wa.me/${wa}?text=${encodeURIComponent('Hola, me interesa: ' + (p.nombre || 'un producto'))}" class="btn-card" target="_blank">Consultar</a>
+            </div>
           </div>
-        </div>
-      `).join('');
+        `}).join('');
+      } else if (pGrid) {
+         pGrid.innerHTML = '<p style="color:var(--text-low); padding:20px; grid-column: 1/-1; text-align:center;">Catálogo vacío o en preparación.</p>';
+      }
 
-      // Blog preview (top 3)
-      document.getElementById('blogGrid').innerHTML = articulos.slice(0, 3).map(a => `
-        <div class="b-card reveal" onclick="location.href='articulo.html?id=${a.id}'">
-          <div class="b-img">
-            <img src="${a.imagen.startsWith('http') ? a.imagen : a.imagen.split('/').pop()}" alt="${a.titulo}" loading="lazy">
-            <div class="b-cat-badge">${a.categoria}</div>
+      // --- BLOG PREVIEW ---
+      const bGrid = document.getElementById('blogGrid');
+      if(bGrid && articulos && articulos.length > 0) {
+        bGrid.innerHTML = articulos.slice(0, 3).map(a => {
+           let imgPathB = '';
+           if(a.imagen) {
+              imgPathB = a.imagen.startsWith('http') ? a.imagen : a.imagen.split('/').pop();
+           }
+           
+           return `
+          <div class="b-card reveal" onclick="location.href='articulo.html?id=${a.id || ''}'">
+            <div class="b-img">
+              <img src="${imgPathB}" alt="${a.titulo || 'Artículo'}" loading="lazy">
+              <div class="b-cat-badge">${a.categoria || ''}</div>
+            </div>
+            <div class="b-body">
+              <div class="b-name">${a.titulo || ''}</div>
+              <div class="b-excerpt">${a.extracto || ''}</div>
+              <button class="b-read">Leer m&aacute;s</button>
+            </div>
           </div>
-          <div class="b-body">
-            <div class="b-name">${a.titulo}</div>
-            <div class="b-excerpt">${a.extracto}</div>
-            <button class="b-read">Leer m&aacute;s</button>
-          </div>
-        </div>
-      `).join('');
+        `}).join('');
+      } else if (bGrid) {
+        bGrid.innerHTML = '<p style="color:var(--text-low); padding:20px; grid-column: 1/-1; text-align:center;">Aún no hay artículos disponibles.</p>';
+      }
 
-      initReveal();
+      // Iniciar animaciones visuales
+      if(typeof initReveal === 'function') {
+        initReveal();
+      }
 
     } catch(err) {
       console.error('[Epicur] Error cargando CMS:', err);
+      const pGrid = document.getElementById('productsGrid');
+      if(pGrid) pGrid.innerHTML = '<p style="color:red; padding:20px; grid-column: 1/-1; text-align:center;">Error al conectar con la base de datos.</p>';
     }
   }
 

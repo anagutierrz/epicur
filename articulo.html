@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Artículo — EPICUR CONCEPT</title>
+<link rel="stylesheet" href="../css/global.css">
+<style>
+  .article-wrap { max-width:760px; margin:0 auto; padding:80px 60px 100px; }
+
+  .article-back {
+    display:inline-flex; align-items:center; gap:10px;
+    font-size:.55rem; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:48px; transition:gap .3s;
+  }
+  .article-back:hover { gap:16px; }
+  .article-back::before { content:'←'; font-size:.8rem; }
+
+  .article-cat { font-size:.55rem; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; display:block; }
+  .article-title {
+    font-family:var(--serif);
+    font-size:clamp(2.2rem, 5vw, 3.8rem);
+    font-weight:300; line-height:1.08; color:var(--beige);
+    margin-bottom:20px;
+  }
+  .article-meta { font-size:.58rem; letter-spacing:.14em; color:var(--text-low); margin-bottom:48px; }
+  .article-meta span { color:var(--gold); margin:0 8px; }
+
+  .article-hero { aspect-ratio:16/9; overflow:hidden; margin-bottom:56px; }
+  .article-hero img { width:100%; height:100%; object-fit:cover; filter:sepia(.12) brightness(.85); }
+
+  .article-body { font-size:.88rem; line-height:2; color:var(--text-mid); }
+  .article-body p { margin-bottom:24px; }
+  .article-body h3 {
+    font-family:var(--serif); font-size:1.6rem; font-weight:300;
+    color:var(--beige); margin:48px 0 16px; line-height:1.2;
+  }
+  .article-body h3::before { content:'—  '; color:var(--gold); }
+
+  .article-rule { width:60px; height:1px; background:var(--gold); margin:60px 0; }
+
+  /* Related */
+  .related { padding:80px 60px; background:var(--dark); }
+  .related-inner { max-width:1180px; margin:0 auto; }
+  .related-title { font-family:var(--serif); font-size:1.8rem; font-weight:300; color:var(--beige); margin-bottom:36px; }
+  .related-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(192,154,98,.1); }
+  .r-card { background:#0E0E0E; overflow:hidden; cursor:pointer; transition:background .3s; }
+  .r-card:hover { background:#141210; }
+  .r-img { aspect-ratio:16/10; overflow:hidden; }
+  .r-img img { width:100%; height:100%; object-fit:cover; filter:sepia(.2) brightness(.6); transition:transform .6s; }
+  .r-card:hover .r-img img { transform:scale(1.05); filter:sepia(.1) brightness(.74); }
+  .r-body { padding:20px 20px 26px; }
+  .r-cat { font-size:.48rem; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+  .r-name { font-family:var(--serif); font-size:1.05rem; font-weight:300; color:var(--beige); line-height:1.3; }
+
+  /* CTA */
+  .article-cta {
+    margin-top:60px; padding:40px; border:1px solid rgba(192,154,98,.2);
+    text-align:center; background:rgba(192,154,98,.04);
+  }
+  .article-cta p { font-family:var(--serif); font-size:1.3rem; font-style:italic; color:var(--beige); margin-bottom:20px; }
+  .wa-inline {
+    display:inline-flex; align-items:center; gap:10px;
+    padding:14px 36px; background:#25D366; color:#fff;
+    font-family:var(--sans); font-size:.58rem; letter-spacing:.18em;
+    text-transform:uppercase; font-weight:600; transition:all .3s;
+  }
+  .wa-inline:hover { background:#1ebe5a; transform:translateY(-2px); }
+  .wa-inline svg { width:15px; height:15px; fill:#fff; }
+
+  @media (max-width:768px) {
+    .article-wrap { padding:60px 24px 80px; }
+    .related { padding:60px 24px 80px; }
+    .related-grid { grid-template-columns:1fr; }
+  }
+  @media (min-width:769px) and (max-width:1099px) {
+    .article-wrap { padding:80px 40px 100px; }
+    .related { padding:80px 40px; }
+    .related-grid { grid-template-columns:repeat(2,1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- MOBILE MENU -->
+<div id="mob-menu">
+  <button class="mob-close" onclick="closeMenu()">&times;</button>
+  <a href="../index.html" onclick="closeMenu()">Inicio</a>
+  <a href="../catalogo/catalogo.html" onclick="closeMenu()">Cat&aacute;logo</a>
+  <a href="blog.html" onclick="closeMenu()">Blog</a>
+  <a href="../index.html#contacto" onclick="closeMenu()">Contacto</a>
+</div>
+
+<!-- NAV -->
+<nav id="navbar" class="scrolled">
+  <a href="../index.html" class="nav-logo">EPICUR</a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Inicio</a></li>
+    <li><a href="../catalogo/catalogo.html">Cat&aacute;logo</a></li>
+    <li><a href="blog.html" class="active">Blog</a></li>
+    <li><a href="../index.html#contacto">Contacto</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Men&uacute;">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ARTICLE -->
+<div id="articleContainer" style="padding-top:80px; background:var(--carbon);">
+  <div class="article-wrap" id="articleWrap">
+    <!-- rendered by JS -->
+  </div>
+</div>
+
+<!-- RELATED -->
+<div class="related">
+  <div class="related-inner">
+    <div class="related-title reveal">Seguir leyendo</div>
+    <div class="related-grid" id="relatedGrid"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="f-logo">EPICUR</div>
+        <p class="f-tagline">Un rinc&oacute;n para los sentidos. Santo Domingo, Rep&uacute;blica Dominicana.</p>
+        <div class="f-social">
+          <a href="#" title="Instagram">Ig</a>
+          <a href="#" title="Facebook">Fb</a>
+          <a href="#" title="WhatsApp">Wa</a>
+        </div>
+      </div>
+      <div>
+        <div class="f-col-title">Cat&aacute;logo</div>
+        <ul class="f-links">
+          <li><a href="../catalogo/catalogo.html">Ver todos los productos</a></li>
+          <li><a href="../catalogo/catalogo.html?cat=cigarros">Cigarros</a></li>
+          <li><a href="../catalogo/catalogo.html?cat=rones">Rones</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="f-col-title">Blog</div>
+        <ul class="f-links">
+          <li><a href="blog.html">Todos los art&iacute;culos</a></li>
+          <li><a href="../index.html#contacto">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="f-col-title">Informaci&oacute;n</div>
+        <ul class="f-links">
+          <li><a href="../index.html">Inicio</a></li>
+          <li><a href="#">Consumo responsable</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="f-copy" id="footerCopy"></div>
+      <div class="f-warning">El consumo de alcohol y tabaco debe realizarse de manera responsable. Venta exclusiva para mayores de edad.</div>
+    </div>
+  </div>
+</footer>
+
+<a href="#" id="wa-float" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+
+<script src="../js/sheets.js"></script>
+<script src="../js/global.js"></script>
+<script>
+  function fmtDate(d) {
+    if (!d) return '';
+    const [y,m,day] = d.split('-');
+    const mes=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+    return `${parseInt(day)} de ${mes[parseInt(m)-1]}, ${y}`;
+  }
+
+  async function init() {
+    const id = parseInt(new URLSearchParams(window.location.search).get('id'));
+    const [cfg, ctc, articulo, relacionados] = await Promise.all([
+      EpicurCMS.getConfig(), EpicurCMS.getContacto(),
+      EpicurCMS.getArticulo(id), EpicurCMS.getBlog()
+    ]);
+    const wa = ctc.whatsapp || cfg.whatsapp;
+    document.getElementById('wa-float').href = `https://wa.me/${wa}`;
+    document.getElementById('footerCopy').textContent = `© ${cfg.anio} ${cfg.nombre} · ${cfg.ciudad}`;
+
+    if (!articulo) {
+      document.getElementById('articleWrap').innerHTML = `<p style="color:var(--text-mid);text-align:center;padding:60px">Artículo no encontrado.</p><div style="text-align:center"><a href="blog.html" class="btn-gold">Volver al blog</a></div>`;
+      return;
+    }
+    document.title = `${articulo.titulo} — ${cfg.nombre}`;
+    const imgSrc = articulo.imagen.startsWith('http') ? articulo.imagen : '../images/' + articulo.imagen.split('/').pop();
+    document.getElementById('articleWrap').innerHTML = `
+      <a href="blog.html" class="article-back">Volver al blog</a>
+      <span class="article-cat">${articulo.categoria}</span>
+      <h1 class="article-title">${articulo.titulo}</h1>
+      <div class="article-meta">${fmtDate(articulo.fecha)} · ${articulo.lectura_min} min de lectura</div>
+      <div class="article-hero"><img src="${imgSrc}" alt="${articulo.titulo}"></div>
+      <div class="article-body">${articulo.contenido}</div>
+      <div class="article-rule"></div>
+      <div class="article-cta">
+        <p>¿Quieres explorar los productos mencionados?</p>
+        <a href="https://wa.me/${wa}" class="wa-inline" target="_blank">
+          <svg viewBox="0 0 24 24" style="width:15px;height:15px;fill:#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Consultar por WhatsApp
+        </a>
+      </div>
+    `;
+    const rel = relacionados.filter(a=>a.id!==id).slice(0,3);
+    document.getElementById('relatedGrid').innerHTML = rel.map(a=>`
+      <div class="r-card" onclick="location.href='articulo.html?id=${a.id}'">
+        <div class="r-img"><img src="${a.imagen.startsWith('http')?a.imagen:'../images/'+a.imagen.split('/').pop()}" alt="${a.titulo}" loading="lazy"></div>
+        <div class="r-body"><div class="r-cat">${a.categoria}</div><div class="r-name">${a.titulo}</div></div>
+      </div>
+    `).join('');
+    const obs = new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  }
+  init();
+</script>
+</body>
+</html>

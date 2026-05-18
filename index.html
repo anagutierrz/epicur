@@ -3,447 +3,137 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EPICUR CONCEPT — Un rincón para los sentidos</title>
-<meta name="description" content="Cigarros, rones, café y más. Una experiencia boutique pensada para disfrutar con calma. Santo Domingo, RD.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title id="pageTitle">EPICUR CONCEPT</title>
+<meta name="description" content="Cigarros, rones, café y más. Una experiencia boutique. Santo Domingo, RD.">
+<link rel="stylesheet" href="css/global.css">
 <style>
-/* ── TOKENS ─────────────────────────────── */
-:root {
-  --carbon:   #0E0E0E;
-  --dark:     #0a0806;
-  --tobacco:  #5A3522;
-  --gold:     #C09A62;       /* slightly brighter for better contrast */
-  --gold-lt:  #D9B47A;
-  --gold-dim: #8a6a3e;
-  --beige:    #F3EFE7;
-  --smoke:    #EEE9E0;
-  --text-mid: rgba(243,239,231,0.78);  /* mid-contrast body text on dark */
-  --text-low: rgba(243,239,231,0.52);  /* captions / meta */
-  --serif:    'Cormorant Garamond', Georgia, serif;
-  --sans:     'Montserrat', sans-serif;
-}
-
-/* ── RESET ──────────────────────────────── */
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; font-size:16px; }
-body {
-  background:var(--carbon);
-  color:var(--beige);
-  font-family:var(--sans);
-  font-weight:300;
-  overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
-}
-img { display:block; max-width:100%; }
-a { text-decoration:none; }
-
-/* ── AGE GATE ───────────────────────────── */
-#age-gate {
-  position:fixed; inset:0; z-index:9999;
-  background:#060402;
-  display:flex; align-items:center; justify-content:center;
-}
-.ag-box {
-  text-align:center; padding:60px 40px;
-  border:1px solid rgba(192,154,98,.3);
-  max-width:420px; width:90%; position:relative;
-}
-.ag-box::before {
-  content:''; position:absolute; inset:8px;
-  border:1px solid rgba(192,154,98,.08); pointer-events:none;
-}
-.ag-logo {
-  font-family:var(--serif); font-size:2.8rem;
-  letter-spacing:.35em; color:var(--gold);
-  font-weight:300; margin-bottom:4px;
-}
-.ag-city {
-  font-size:.55rem; letter-spacing:.28em; text-transform:uppercase;
-  color:rgba(192,154,98,.5); margin-bottom:44px;
-}
-.ag-q {
-  font-family:var(--serif); font-size:1.3rem; font-style:italic;
-  color:var(--beige); line-height:1.5; margin-bottom:10px;
-}
-.ag-sub {
-  font-size:.58rem; letter-spacing:.15em; text-transform:uppercase;
-  color:var(--text-low); margin-bottom:40px;
-}
+/* ── AGE GATE ── */
+#age-gate { position:fixed; inset:0; z-index:9999; background:#060402; display:flex; align-items:center; justify-content:center; transition:opacity .7s ease; }
+.ag-box { text-align:center; padding:60px 40px; border:1px solid rgba(192,154,98,.25); max-width:420px; width:90%; position:relative; }
+.ag-box::before { content:''; position:absolute; inset:8px; border:1px solid rgba(192,154,98,.07); pointer-events:none; }
+.ag-logo { font-family:var(--serif); font-size:2.8rem; letter-spacing:.35em; color:var(--gold); font-weight:300; margin-bottom:4px; }
+.ag-city { font-size:.55rem; letter-spacing:.28em; text-transform:uppercase; color:rgba(192,154,98,.4); margin-bottom:44px; }
+.ag-q { font-family:var(--serif); font-size:1.3rem; font-style:italic; color:var(--beige); line-height:1.5; margin-bottom:10px; }
+.ag-sub { font-size:.58rem; letter-spacing:.15em; text-transform:uppercase; color:var(--text-low); margin-bottom:40px; }
 .ag-btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
-.ag-btn {
-  padding:14px 36px; border:none; cursor:pointer;
-  font-family:var(--sans); font-size:.6rem;
-  letter-spacing:.2em; text-transform:uppercase; transition:all .3s;
-}
+.ag-btn { padding:14px 36px; border:none; cursor:pointer; font-family:var(--sans); font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; transition:all .3s; }
 .ag-yes { background:var(--gold); color:#fff; font-weight:600; }
 .ag-yes:hover { background:var(--gold-lt); transform:translateY(-2px); }
-.ag-no {
-  background:transparent; color:var(--text-mid);
-  border:1px solid rgba(243,239,231,.22);
-}
-.ag-no:hover { border-color:rgba(243,239,231,.5); color:var(--beige); }
+.ag-no { background:transparent; color:var(--text-mid); border:1px solid rgba(243,239,231,.22); }
+.ag-no:hover { border-color:rgba(243,239,231,.5); }
 
-/* ── NAV ────────────────────────────────── */
-nav {
-  position:fixed; top:0; left:0; right:0; z-index:200;
-  display:flex; align-items:center; justify-content:space-between;
-  padding:28px 60px;
-  transition:padding .4s, background .4s, border .4s;
-}
-nav.scrolled {
-  padding:16px 60px;
-  background:rgba(10,8,6,.96);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(192,154,98,.15);
-}
-.nav-logo {
-  font-family:var(--serif); font-size:1.5rem;
-  letter-spacing:.36em; color:var(--gold); font-weight:300;
-}
-.nav-links { display:flex; gap:44px; list-style:none; }
-.nav-links a {
-  font-size:.58rem; letter-spacing:.22em; text-transform:uppercase;
-  color:var(--text-mid); position:relative; transition:color .3s;
-}
-.nav-links a::after {
-  content:''; position:absolute; bottom:-5px; left:0; right:0;
-  height:1px; background:var(--gold); transform:scaleX(0); transition:transform .3s;
-}
-.nav-links a:hover { color:var(--gold); }
-.nav-links a:hover::after { transform:scaleX(1); }
-.hamburger {
-  display:none; flex-direction:column; gap:5px;
-  background:none; border:none; cursor:pointer; padding:4px;
-}
-.hamburger span {
-  display:block; width:26px; height:1px;
-  background:var(--beige); transition:all .3s;
-}
-
-/* ── MOBILE MENU ─────────────────────────── */
-#mob-menu {
-  position:fixed; inset:0; z-index:190;
-  background:rgba(10,8,6,.98);
-  display:none; flex-direction:column;
-  align-items:center; justify-content:center; gap:40px;
-}
-#mob-menu.open { display:flex; }
-#mob-menu a {
-  font-family:var(--serif); font-size:2rem; font-weight:300;
-  color:var(--beige); transition:color .3s;
-}
-#mob-menu a:hover { color:var(--gold); }
-.mob-close {
-  position:absolute; top:28px; right:28px;
-  background:none; border:none; cursor:pointer;
-  font-family:var(--serif); font-size:1.8rem;
-  color:var(--text-mid); line-height:1;
-}
-
-/* ── HERO ─────────────────────────────────── */
-#hero {
-  min-height:100vh; position:relative;
-  display:flex; align-items:center; overflow:hidden;
-}
-.hero-bg {
-  position:absolute; inset:0;
-  background:
-    radial-gradient(ellipse at 65% 35%, rgba(90,53,34,.5) 0%, transparent 55%),
-    radial-gradient(ellipse at 15% 75%, rgba(46,58,45,.3) 0%, transparent 50%),
-    linear-gradient(140deg, #0a0806 0%, #160d06 45%, #0a0806 100%);
-}
-.hero-photo {
-  position:absolute; inset:0;
-  background:url('img_salon1.png') center/cover no-repeat;
-  opacity:.15; filter:sepia(.4) contrast(1.1);
-}
-.hero-vignette {
-  position:absolute; inset:0;
-  background:
-    linear-gradient(to right, rgba(10,8,6,.94) 0%, rgba(10,8,6,.6) 55%, rgba(10,8,6,.9) 100%),
-    linear-gradient(to top, rgba(10,8,6,.75) 0%, transparent 50%);
-}
-.hero-grain {
-  position:absolute; inset:0; pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");
-  opacity:.7;
-}
-.hero-content {
-  position:relative; z-index:5;
-  padding:120px 60px 80px;
-  max-width:720px;
-  animation:fadeUp 1.2s ease both;
-}
-@keyframes fadeUp {
-  from { opacity:0; transform:translateY(28px); }
-  to   { opacity:1; transform:translateY(0); }
-}
-.hero-eyebrow {
-  display:flex; align-items:center; gap:14px;
-  font-size:.55rem; letter-spacing:.36em; text-transform:uppercase;
-  color:var(--gold); margin-bottom:24px;
-}
+/* ── HERO ── */
+#hero { min-height:100vh; position:relative; display:flex; align-items:center; overflow:hidden; }
+.hero-bg { position:absolute; inset:0; background:radial-gradient(ellipse at 65% 35%,rgba(90,53,34,.5) 0%,transparent 55%),radial-gradient(ellipse at 15% 75%,rgba(46,58,45,.28) 0%,transparent 50%),linear-gradient(140deg,#0a0806 0%,#160d06 45%,#0a0806 100%); }
+.hero-photo { position:absolute; inset:0; background:url('images/img_salon1.png') center/cover no-repeat; opacity:.15; filter:sepia(.4) contrast(1.1); }
+.hero-vignette { position:absolute; inset:0; background:linear-gradient(to right,rgba(10,8,6,.94) 0%,rgba(10,8,6,.6) 55%,rgba(10,8,6,.9) 100%),linear-gradient(to top,rgba(10,8,6,.75) 0%,transparent 50%); }
+.hero-grain { position:absolute; inset:0; pointer-events:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E"); opacity:.7; }
+.hero-content { position:relative; z-index:5; padding:120px 60px 80px; max-width:720px; animation:fadeUp 1.2s ease both; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+.hero-eyebrow { display:flex; align-items:center; gap:14px; font-size:.55rem; letter-spacing:.36em; text-transform:uppercase; color:var(--gold); margin-bottom:24px; }
 .hero-eyebrow::before { content:''; display:block; width:32px; height:1px; background:var(--gold); }
-.hero-title {
-  font-family:var(--serif);
-  font-size:clamp(2.8rem, 8vw, 5.5rem);
-  font-weight:300; line-height:1.05;
-  color:var(--beige); margin-bottom:24px;
-}
+.hero-title { font-family:var(--serif); font-size:clamp(2.8rem,8vw,5.5rem); font-weight:300; line-height:1.05; color:var(--beige); margin-bottom:24px; }
 .hero-title em { font-style:italic; color:var(--gold); }
-.hero-sub {
-  font-size:.85rem; line-height:1.95; letter-spacing:.03em;
-  color:var(--text-mid); max-width:500px; margin-bottom:48px;
-}
+.hero-sub { font-size:.85rem; line-height:1.95; color:var(--text-mid); max-width:500px; margin-bottom:48px; }
 .hero-btns { display:flex; gap:16px; flex-wrap:wrap; }
-.btn-gold {
-  padding:15px 40px; background:var(--gold); color:#fff;
-  font-family:var(--sans); font-size:.6rem;
-  letter-spacing:.2em; text-transform:uppercase;
-  font-weight:600; transition:all .3s; display:inline-block;
-}
-.btn-gold:hover { background:var(--gold-lt); transform:translateY(-2px); box-shadow:0 10px 30px rgba(192,154,98,.3); }
-.btn-outline {
-  padding:15px 40px; background:transparent; color:var(--beige);
-  border:1px solid rgba(243,239,231,.35);
-  font-family:var(--sans); font-size:.6rem;
-  letter-spacing:.2em; text-transform:uppercase;
-  transition:all .3s; display:inline-block;
-}
-.btn-outline:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-2px); }
-.hero-scroll {
-  position:absolute; bottom:40px; left:50%; transform:translateX(-50%);
-  display:flex; flex-direction:column; align-items:center; gap:10px; z-index:5;
-}
-.hero-scroll span {
-  font-size:.52rem; letter-spacing:.32em; text-transform:uppercase;
-  color:rgba(192,154,98,.5);
-}
-.scroll-bar {
-  width:1px; height:50px;
-  background:linear-gradient(to bottom, var(--gold), transparent);
-  animation:scrollpulse 2.2s ease-in-out infinite;
-}
-@keyframes scrollpulse { 0%,100%{opacity:.25} 50%{opacity:1} }
+.hero-scroll { position:absolute; bottom:40px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:10px; z-index:5; }
+.hero-scroll span { font-size:.52rem; letter-spacing:.32em; text-transform:uppercase; color:rgba(192,154,98,.4); }
+.scroll-bar { width:1px; height:50px; background:linear-gradient(to bottom,var(--gold),transparent); animation:sp 2.2s ease-in-out infinite; }
+@keyframes sp { 0%,100%{opacity:.25} 50%{opacity:1} }
 
-/* ── SECTION UTILS ─────────────────────── */
-.reveal {
-  opacity:0; transform:translateY(32px);
-  transition:opacity .8s ease, transform .8s ease;
-}
-.reveal.visible { opacity:1; transform:translateY(0); }
-.d1{transition-delay:.15s} .d2{transition-delay:.3s} .d3{transition-delay:.45s}
-
-.sec-label {
-  display:block; font-size:.55rem; letter-spacing:.32em;
-  text-transform:uppercase; color:var(--gold); margin-bottom:12px;
-}
-.sec-rule { width:44px; height:1px; background:var(--gold); margin-bottom:32px; }
-
-/* ── CONCEPT ─────────────────────────── */
+/* ── CONCEPT ── */
 #concept { padding:110px 60px; background:var(--dark); }
-.concept-grid {
-  max-width:1180px; margin:0 auto;
-  display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;
-}
-.concept-title {
-  font-family:var(--serif);
-  font-size:clamp(2.2rem, 4vw, 3.8rem);
-  font-weight:300; line-height:1.12; color:var(--beige); margin-bottom:28px;
-}
+.concept-grid { max-width:1180px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+.concept-title { font-family:var(--serif); font-size:clamp(2.2rem,4vw,3.8rem); font-weight:300; line-height:1.12; color:var(--beige); margin-bottom:28px; }
 .concept-title em { font-style:italic; color:var(--gold); }
-.concept-text {
-  font-size:.82rem; line-height:2; color:var(--text-mid); margin-bottom:20px;
-}
+.concept-text { font-size:.82rem; line-height:2; color:var(--text-mid); margin-bottom:20px; }
 .concept-text:last-of-type { margin-bottom:40px; }
 .concept-visual { position:relative; aspect-ratio:3/4; overflow:hidden; }
-.concept-visual img {
-  width:100%; height:100%; object-fit:cover;
-  filter:sepia(.15) brightness(.8) contrast(1.05);
-  transition:transform .9s ease;
-}
+.concept-visual img { width:100%; height:100%; object-fit:cover; filter:sepia(.15) brightness(.8) contrast(1.05); transition:transform .9s ease; }
 .concept-visual:hover img { transform:scale(1.04); }
-.concept-badge {
-  position:absolute; bottom:32px; left:-24px;
-  background:var(--gold); color:#fff;
-  padding:18px 26px;
-  font-family:var(--serif); font-size:1.05rem; font-style:italic; line-height:1.4;
-}
-.concept-stats {
-  display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
-  background:rgba(192,154,98,.15); margin-top:52px;
-}
+.concept-badge { position:absolute; bottom:32px; left:-24px; background:var(--gold); color:#fff; padding:18px 26px; font-family:var(--serif); font-size:1.05rem; font-style:italic; line-height:1.4; }
+.concept-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(192,154,98,.15); margin-top:52px; }
 .cs-item { background:var(--dark); padding:24px 16px; text-align:center; }
 .cs-num { font-family:var(--serif); font-size:2rem; color:var(--gold); font-weight:300; }
 .cs-lbl { font-size:.5rem; letter-spacing:.2em; text-transform:uppercase; color:var(--text-low); margin-top:6px; }
 
-/* ── CATALOG ─────────────────────────── */
+/* ── CATALOG PREVIEW ── */
 #catalogo { padding:110px 60px; background:var(--smoke); }
-.cat-header {
-  max-width:1180px; margin:0 auto 52px;
-  display:flex; justify-content:space-between; align-items:flex-end;
-  flex-wrap:wrap; gap:24px;
-}
-.cat-title {
-  font-family:var(--serif);
-  font-size:clamp(2rem, 3.5vw, 3rem);
-  font-weight:300; color:var(--carbon);
-}
+.cat-header { max-width:1180px; margin:0 auto 52px; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:24px; }
+.cat-title { font-family:var(--serif); font-size:clamp(2rem,3.5vw,3rem); font-weight:300; color:var(--carbon); }
 .cat-label { font-size:.55rem; letter-spacing:.32em; text-transform:uppercase; color:var(--tobacco); margin-bottom:10px; display:block; }
-.filter-row { display:flex; gap:6px; flex-wrap:wrap; }
-.f-tab {
-  padding:9px 20px; background:transparent;
-  border:1px solid rgba(90,53,34,.3); color:rgba(14,14,14,.55);
-  font-family:var(--sans); font-size:.52rem;
-  letter-spacing:.18em; text-transform:uppercase; cursor:pointer; transition:all .3s;
-}
-.f-tab.active, .f-tab:hover { background:var(--tobacco); border-color:var(--tobacco); color:#fff; }
-
-.products-grid {
-  max-width:1180px; margin:0 auto;
-  display:grid; grid-template-columns:repeat(3,1fr); gap:2px;
-}
+.products-grid { max-width:1180px; margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
 .p-card { position:relative; aspect-ratio:3/4; overflow:hidden; cursor:pointer; background:#140e08; }
-.p-card img {
-  width:100%; height:100%; object-fit:cover;
-  filter:brightness(.7) sepia(.1);
-  transition:transform .8s ease, filter .5s;
-}
+.p-card img { width:100%; height:100%; object-fit:cover; filter:brightness(.7) sepia(.1); transition:transform .8s,filter .5s; }
 .p-card:hover img { transform:scale(1.06); filter:brightness(.82) sepia(.06); }
-.p-overlay {
-  position:absolute; inset:0;
-  background:linear-gradient(to top, rgba(10,8,6,.98) 0%, rgba(10,8,6,.1) 52%, transparent 100%);
-  transition:background .4s;
-}
-.p-card:hover .p-overlay {
-  background:linear-gradient(to top, rgba(10,8,6,1) 0%, rgba(10,8,6,.55) 60%, rgba(10,8,6,.2) 100%);
-}
-.p-num {
-  position:absolute; top:18px; left:20px;
-  font-family:var(--serif); font-size:.82rem; color:rgba(192,154,98,.55);
-}
-.p-tag {
-  position:absolute; top:18px; right:18px;
-  font-size:.48rem; letter-spacing:.2em; text-transform:uppercase;
-  color:rgba(192,154,98,.8); padding:4px 9px;
-  border:1px solid rgba(192,154,98,.35);
-}
-.p-info {
-  position:absolute; bottom:0; left:0; right:0; padding:24px 22px;
-  transform:translateY(62px); transition:transform .4s ease;
-}
-.p-card:hover .p-info { transform:translateY(0); }
-.p-origin {
-  font-size:.52rem; letter-spacing:.18em; text-transform:uppercase;
-  color:var(--gold); margin-bottom:6px;
-}
-.p-name {
-  font-family:var(--serif); font-size:1.3rem;
-  color:var(--beige); margin-bottom:8px; font-weight:300;
-}
-.p-desc {
-  font-size:.66rem; color:var(--text-mid); line-height:1.75;
-  margin-bottom:14px; opacity:0; transition:opacity .3s .1s;
-}
-.p-card:hover .p-desc { opacity:1; }
-.p-price {
-  font-family:var(--serif); font-size:1.1rem;
-  color:var(--gold-lt); margin-bottom:14px; font-weight:400;
-}
-.btn-card {
-  display:inline-block; padding:9px 20px;
-  border:1px solid var(--gold); color:var(--gold);
-  font-family:var(--sans); font-size:.52rem;
-  letter-spacing:.16em; text-transform:uppercase; transition:all .3s;
-}
+.p-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(10,8,6,.98) 0%,rgba(10,8,6,.1) 52%,transparent 100%); transition:background .4s; }
+.p-card:hover .p-overlay { background:linear-gradient(to top,rgba(10,8,6,1) 0%,rgba(10,8,6,.55) 60%,rgba(10,8,6,.2) 100%); }
+.p-num { position:absolute; top:18px; left:20px; font-family:var(--serif); font-size:.82rem; color:rgba(192,154,98,.55); }
+.p-tag { position:absolute; top:18px; right:18px; font-size:.48rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(192,154,98,.8); padding:4px 9px; border:1px solid rgba(192,154,98,.35); }
+.p-info { position:absolute; bottom:0; left:0; right:0; padding:24px 22px; transform:translateY(62px); transition:transform .4s ease; }
+.p-card:hover .p-info, .p-info.always { transform:translateY(0); }
+.p-origin { font-size:.52rem; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-bottom:6px; }
+.p-name { font-family:var(--serif); font-size:1.3rem; color:var(--beige); margin-bottom:8px; font-weight:300; }
+.p-desc { font-size:.66rem; color:var(--text-mid); line-height:1.75; margin-bottom:14px; opacity:0; transition:opacity .3s .1s; }
+.p-card:hover .p-desc, .p-desc.always { opacity:1; }
+.p-price { font-family:var(--serif); font-size:1.1rem; color:var(--gold-lt); margin-bottom:14px; }
+.btn-card { display:inline-block; padding:9px 20px; border:1px solid var(--gold); color:var(--gold); font-family:var(--sans); font-size:.52rem; letter-spacing:.16em; text-transform:uppercase; transition:all .3s; }
 .btn-card:hover { background:var(--gold); color:#fff; }
+.cat-footer { max-width:1180px; margin:48px auto 0; text-align:center; }
 
-/* ── QUOTE ───────────────────────────── */
+/* ── QUOTE ── */
 #quote { position:relative; overflow:hidden; }
-.quote-bg {
-  position:absolute; inset:0;
-  background:url('img_ron_1903.png') center/cover no-repeat;
-  filter:brightness(.18) sepia(.5);
-}
-.quote-inner {
-  position:relative; z-index:2; padding:110px 60px;
-  max-width:860px; margin:0 auto; text-align:center;
-}
-.q-rule-top { width:1px; height:56px; background:linear-gradient(to bottom, transparent, var(--gold)); margin:0 auto 36px; }
+.quote-bg { position:absolute; inset:0; background:url('images/img_ron_1903.png') center/cover no-repeat; filter:brightness(.18) sepia(.5); }
+.quote-inner { position:relative; z-index:2; padding:110px 60px; max-width:860px; margin:0 auto; text-align:center; }
+.q-rule-top { width:1px; height:56px; background:linear-gradient(to bottom,transparent,var(--gold)); margin:0 auto 36px; }
 .q-mark { font-family:var(--serif); font-size:5rem; color:rgba(192,154,98,.35); line-height:1; margin-bottom:-16px; display:block; }
-.q-text {
-  font-family:var(--serif);
-  font-size:clamp(1.6rem, 4vw, 2.8rem);
-  font-style:italic; font-weight:300;
-  color:var(--beige); line-height:1.35; margin-bottom:28px;
-}
-.q-author {
-  font-size:.58rem; letter-spacing:.32em; text-transform:uppercase; color:var(--gold);
-}
-.q-rule-bot { width:1px; height:56px; background:linear-gradient(to top, transparent, var(--gold)); margin:36px auto 0; }
+.q-text { font-family:var(--serif); font-size:clamp(1.6rem,4vw,2.8rem); font-style:italic; font-weight:300; color:var(--beige); line-height:1.35; margin-bottom:28px; }
+.q-author { font-size:.58rem; letter-spacing:.32em; text-transform:uppercase; color:var(--gold); }
+.q-rule-bot { width:1px; height:56px; background:linear-gradient(to top,transparent,var(--gold)); margin:36px auto 0; }
 
-/* ── EXPERIENCE ─────────────────────── */
+/* ── EXPERIENCE ── */
 #experience { padding:110px 60px; background:var(--tobacco); position:relative; overflow:hidden; }
-#experience::before {
-  content:''; position:absolute; top:0; right:0; bottom:0; width:40%;
-  background:url('img_salon2.png') center/cover no-repeat;
-  opacity:.09; filter:sepia(.4);
-}
-.exp-grid {
-  max-width:1180px; margin:0 auto;
-  display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;
-  position:relative; z-index:2;
-}
-.exp-pull {
-  font-family:var(--serif);
-  font-size:clamp(1.8rem, 3.5vw, 3.2rem);
-  font-style:italic; font-weight:300;
-  color:var(--beige); line-height:1.25;
-  padding-left:28px; border-left:2px solid rgba(192,154,98,.4);
-}
+#experience::before { content:''; position:absolute; top:0; right:0; bottom:0; width:40%; background:url('images/img_salon2.png') center/cover no-repeat; opacity:.09; filter:sepia(.4); }
+.exp-grid { max-width:1180px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; position:relative; z-index:2; }
+.exp-pull { font-family:var(--serif); font-size:clamp(1.8rem,3.5vw,3.2rem); font-style:italic; font-weight:300; color:var(--beige); line-height:1.25; padding-left:28px; border-left:2px solid rgba(192,154,98,.35); }
 .exp-items { display:grid; grid-template-columns:1fr 1fr; gap:32px; }
 .exp-item { border-top:1px solid rgba(243,239,231,.15); padding-top:22px; }
 .exp-line { width:24px; height:1px; background:var(--gold-lt); margin-bottom:14px; }
 .exp-item-title { font-family:var(--serif); font-size:1.1rem; color:var(--beige); margin-bottom:8px; font-weight:400; }
 .exp-item-text { font-size:.68rem; line-height:1.8; color:rgba(243,239,231,.65); }
 
-/* ── SALON GALLERY ─────────────────── */
+/* ── SALON ── */
 #salon { display:grid; grid-template-columns:1fr 1fr; height:440px; }
 .s-panel { position:relative; overflow:hidden; cursor:pointer; }
-.s-panel img { width:100%; height:100%; object-fit:cover; filter:brightness(.5) sepia(.2); transition:transform .8s, filter .5s; }
+.s-panel img { width:100%; height:100%; object-fit:cover; filter:brightness(.5) sepia(.2); transition:transform .8s,filter .5s; }
 .s-panel:hover img { transform:scale(1.04); filter:brightness(.68) sepia(.1); }
 .s-label { position:absolute; bottom:32px; left:32px; z-index:2; }
 .s-label span { display:block; font-size:.52rem; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); margin-bottom:7px; }
 .s-label h3 { font-family:var(--serif); font-size:1.55rem; font-weight:300; color:var(--beige); }
 
-/* ── BLOG ────────────────────────────── */
+/* ── BLOG PREVIEW ── */
 #blog { padding:110px 60px; background:var(--dark); }
-.blog-header { max-width:1180px; margin:0 auto 56px; }
-.blog-title { font-family:var(--serif); font-size:clamp(2rem, 3.5vw, 3rem); font-weight:300; color:var(--beige); margin-top:12px; }
-.blog-grid {
-  max-width:1180px; margin:0 auto;
-  display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
-  background:rgba(192,154,98,.12);
-}
+.blog-header { max-width:1180px; margin:0 auto 56px; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:20px; }
+.blog-title { font-family:var(--serif); font-size:clamp(2rem,3.5vw,3rem); font-weight:300; color:var(--beige); margin-top:12px; }
+.blog-grid { max-width:1180px; margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(192,154,98,.1); }
 .b-card { background:#0E0E0E; overflow:hidden; cursor:pointer; transition:background .3s; }
 .b-card:hover { background:#141210; }
 .b-img { aspect-ratio:16/10; overflow:hidden; position:relative; }
-.b-img img { width:100%; height:100%; object-fit:cover; filter:sepia(.2) brightness(.6); transition:transform .6s, filter .4s; }
+.b-img img { width:100%; height:100%; object-fit:cover; filter:sepia(.2) brightness(.6); transition:transform .6s,filter .4s; }
 .b-card:hover .b-img img { transform:scale(1.05); filter:sepia(.1) brightness(.74); }
-.b-cat { position:absolute; bottom:12px; left:12px; font-size:.48rem; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); background:rgba(10,8,6,.85); padding:4px 10px; }
+.b-cat-badge { position:absolute; bottom:12px; left:12px; font-size:.48rem; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); background:rgba(10,8,6,.85); padding:4px 10px; }
 .b-body { padding:24px 24px 32px; }
 .b-name { font-family:var(--serif); font-size:1.15rem; font-weight:300; line-height:1.3; color:var(--beige); margin-bottom:10px; }
 .b-excerpt { font-size:.7rem; line-height:1.85; color:var(--text-mid); margin-bottom:20px; }
 .b-read { font-size:.52rem; letter-spacing:.22em; text-transform:uppercase; color:var(--gold); display:flex; align-items:center; gap:10px; cursor:pointer; border:none; background:none; font-family:var(--sans); padding:0; }
 .b-read::after { content:''; display:block; width:20px; height:1px; background:var(--gold); transition:width .3s; }
 .b-card:hover .b-read::after { width:38px; }
+.blog-footer { max-width:1180px; margin:48px auto 0; text-align:center; }
 
-/* ── CONTACT ─────────────────────────── */
+/* ── CONTACT ── */
 #contacto { padding:110px 60px; background:var(--carbon); }
 .contact-grid { max-width:1180px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:80px; }
-.contact-title { font-family:var(--serif); font-size:clamp(1.9rem, 3.5vw, 3rem); font-weight:300; color:var(--beige); line-height:1.2; margin-bottom:36px; }
+.contact-title { font-family:var(--serif); font-size:clamp(1.9rem,3.5vw,3rem); font-weight:300; color:var(--beige); line-height:1.2; margin-bottom:36px; }
 .contact-title em { font-style:italic; color:var(--gold); }
 .c-detail { display:flex; gap:16px; align-items:flex-start; padding-bottom:24px; margin-bottom:24px; border-bottom:1px solid rgba(243,239,231,.09); }
 .c-detail:last-of-type { border-bottom:none; }
@@ -451,146 +141,43 @@ nav.scrolled {
 .c-icon svg { width:14px; height:14px; fill:none; stroke:var(--gold); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
 .c-lbl { font-size:.5rem; letter-spacing:.22em; text-transform:uppercase; color:var(--gold); margin-bottom:5px; }
 .c-val { font-size:.78rem; color:var(--text-mid); line-height:1.65; }
-.wa-btn {
-  display:inline-flex; align-items:center; gap:12px;
-  padding:16px 40px; background:#25D366; color:#fff;
-  font-family:var(--sans); font-size:.6rem;
-  letter-spacing:.18em; text-transform:uppercase; font-weight:600;
-  margin-bottom:44px; transition:all .3s;
-}
+.wa-btn { display:inline-flex; align-items:center; gap:12px; padding:16px 40px; background:#25D366; color:#fff; font-family:var(--sans); font-size:.6rem; letter-spacing:.18em; text-transform:uppercase; font-weight:600; margin-bottom:44px; transition:all .3s; }
 .wa-btn:hover { background:#1ebe5a; transform:translateY(-2px); box-shadow:0 8px 28px rgba(37,211,102,.3); }
 .wa-btn svg { width:16px; height:16px; fill:#fff; flex-shrink:0; }
-/* Form */
 .f-label { display:block; font-size:.52rem; letter-spacing:.22em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
-.f-input, .f-select, .f-area {
-  width:100%; background:rgba(243,239,231,.04);
-  border:none; border-bottom:1px solid rgba(192,154,98,.28);
-  color:var(--beige); font-family:var(--sans); font-size:.85rem;
-  padding:13px 6px; outline:none; transition:border-color .3s; margin-bottom:26px; appearance:none;
-}
-.f-input:focus, .f-select:focus, .f-area:focus { border-color:var(--gold); background:rgba(192,154,98,.04); }
-.f-input::placeholder, .f-area::placeholder { color:rgba(243,239,231,.25); }
-.f-select { color:var(--text-mid); }
-.f-select option { background:#1a1108; color:var(--beige); }
+.f-input,.f-select,.f-area { width:100%; background:rgba(243,239,231,.04); border:none; border-bottom:1px solid rgba(192,154,98,.28); color:var(--beige); font-family:var(--sans); font-size:.85rem; padding:13px 6px; outline:none; transition:border-color .3s; margin-bottom:26px; appearance:none; }
+.f-input:focus,.f-select:focus,.f-area:focus { border-color:var(--gold); }
+.f-input::placeholder,.f-area::placeholder { color:rgba(243,239,231,.25); }
+.f-select { color:var(--text-mid); } .f-select option { background:#1a1108; color:var(--beige); }
 .f-area { height:110px; resize:none; }
-.btn-submit {
-  width:100%; padding:17px; background:var(--gold); border:none;
-  color:#fff; font-family:var(--sans); font-size:.6rem;
-  letter-spacing:.2em; text-transform:uppercase; font-weight:600;
-  cursor:pointer; transition:all .3s;
-}
+.btn-submit { width:100%; padding:17px; background:var(--gold); border:none; color:#fff; font-family:var(--sans); font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; font-weight:600; cursor:pointer; transition:all .3s; }
 .btn-submit:hover { background:var(--gold-lt); transform:translateY(-2px); }
 
-/* ── FOOTER ──────────────────────────── */
-footer { background:#040302; border-top:1px solid rgba(192,154,98,.14); padding:68px 60px 40px; }
-.footer-inner { max-width:1180px; margin:0 auto; }
-.footer-top { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:56px; margin-bottom:56px; }
-.f-logo { font-family:var(--serif); font-size:2.2rem; color:var(--gold); letter-spacing:.32em; font-weight:300; margin-bottom:14px; }
-.f-tagline { font-size:.68rem; line-height:1.9; color:rgba(243,239,231,.45); margin-bottom:26px; }
-.f-social { display:flex; gap:10px; }
-.f-social a {
-  width:36px; height:36px; border:1px solid rgba(192,154,98,.25);
-  display:flex; align-items:center; justify-content:center;
-  font-size:.65rem; color:rgba(192,154,98,.6);
-  text-decoration:none; transition:all .3s; font-family:var(--serif);
-}
-.f-social a:hover { border-color:var(--gold); color:var(--gold); background:rgba(192,154,98,.1); }
-.f-col-title { font-size:.52rem; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); margin-bottom:22px; }
-.f-links { list-style:none; }
-.f-links li { margin-bottom:12px; }
-.f-links a { font-size:.72rem; color:rgba(243,239,231,.48); transition:color .3s; }
-.f-links a:hover { color:rgba(243,239,231,.78); }
-.footer-bottom {
-  border-top:1px solid rgba(243,239,231,.07); padding-top:28px;
-  display:flex; justify-content:space-between; align-items:flex-start;
-  flex-wrap:wrap; gap:18px;
-}
-.f-copy { font-size:.58rem; color:rgba(243,239,231,.28); }
-.f-warning { font-size:.52rem; color:rgba(243,239,231,.22); max-width:400px; line-height:1.7; text-align:right; }
-
-/* ── FLOAT WA ─────────────────────────── */
-#wa-float {
-  position:fixed; bottom:28px; right:28px; z-index:500;
-  width:52px; height:52px; border-radius:50%;
-  background:#25D366; display:flex; align-items:center; justify-content:center;
-  box-shadow:0 4px 18px rgba(37,211,102,.38); transition:transform .3s, box-shadow .3s;
-  animation:ring 3.5s ease infinite;
-}
-#wa-float:hover { transform:scale(1.1); box-shadow:0 8px 28px rgba(37,211,102,.55); }
-#wa-float svg { width:26px; height:26px; fill:#fff; }
-@keyframes ring {
-  0%,100%{ box-shadow:0 4px 18px rgba(37,211,102,.38); }
-  50%{ box-shadow:0 4px 26px rgba(37,211,102,.58), 0 0 0 5px rgba(37,211,102,.1); }
-}
-
-/* ══════════════════════════════════════════
-   MOBILE — MAX 768px
-══════════════════════════════════════════ */
-@media (max-width: 768px) {
-  nav { padding:20px 24px; }
-  nav.scrolled { padding:14px 24px; }
-  .nav-links { display:none; }
-  .hamburger { display:flex; }
-
+/* MOBILE */
+@media (max-width:768px) {
   .hero-content { padding:100px 24px 64px; }
   .hero-scroll { display:none; }
-
-  #concept { padding:72px 24px; }
-  .concept-grid { grid-template-columns:1fr; gap:48px; }
-  .concept-visual { max-width:100%; }
-  .concept-badge { left:0; bottom:0; position:relative; }
-  .concept-stats { margin-top:40px; }
-
-  #catalogo { padding:72px 24px; }
-  .cat-header { flex-direction:column; align-items:flex-start; gap:20px; }
-  .products-grid { grid-template-columns:1fr; }
-  .p-card { aspect-ratio:4/3; }
-  /* On mobile, always show product info — no hover needed */
-  .p-info { transform:translateY(0) !important; }
-  .p-desc { opacity:1 !important; }
-
+  #concept,#catalogo,#blog,#experience,#contacto { padding:72px 24px; }
   .quote-inner { padding:80px 24px; }
-  .q-text { font-size:clamp(1.4rem, 6vw, 2rem); }
-
-  #experience { padding:72px 24px; }
-  #experience::before { display:none; }
-  .exp-grid { grid-template-columns:1fr; gap:48px; }
-  .exp-items { grid-template-columns:1fr; gap:28px; }
-
-  #salon { grid-template-columns:1fr; height:auto; }
-  .s-panel { height:260px; }
-
-  #blog { padding:72px 24px; }
+  .concept-grid { grid-template-columns:1fr; gap:48px; }
+  .concept-badge { left:0; position:relative; bottom:auto; }
+  .products-grid { grid-template-columns:1fr; }
+  .p-card { aspect-ratio:4/3; } .p-info { transform:translateY(0) !important; } .p-desc { opacity:1 !important; }
+  .exp-grid { grid-template-columns:1fr; gap:48px; } #experience::before { display:none; }
+  .exp-items { grid-template-columns:1fr; }
+  #salon { grid-template-columns:1fr; height:auto; } .s-panel { height:260px; }
   .blog-grid { grid-template-columns:1fr; }
-  .blog-grid .b-card:nth-child(n+4) { display:none; }
-
-  #contacto { padding:72px 24px; }
   .contact-grid { grid-template-columns:1fr; gap:48px; }
-
-  footer { padding:56px 24px 32px; }
-  .footer-top { grid-template-columns:1fr; gap:36px; }
-  .footer-bottom { flex-direction:column; }
-  .f-warning { text-align:left; }
-
-  #wa-float { bottom:20px; right:20px; width:48px; height:48px; }
-  #wa-float svg { width:22px; height:22px; }
+  .cat-header,.blog-header { flex-direction:column; align-items:flex-start; }
 }
-
-/* TABLET — 769px to 1099px */
-@media (min-width: 769px) and (max-width: 1099px) {
-  nav, nav.scrolled { padding-left:40px; padding-right:40px; }
-  .hero-content { padding-left:40px; padding-right:40px; }
-  #concept, #catalogo, #blog, #experience, #contacto { padding-left:40px; padding-right:40px; }
-  .quote-inner { padding-left:40px; padding-right:40px; }
-  footer { padding-left:40px; padding-right:40px; }
-  .concept-grid { grid-template-columns:1fr; gap:56px; }
-  .concept-visual { max-width:540px; }
+@media (min-width:769px) and (max-width:1099px) {
+  #concept,#catalogo,#blog,#experience,#contacto { padding:80px 40px; }
+  .quote-inner { padding:90px 40px; }
+  .concept-grid { grid-template-columns:1fr; gap:56px; } .concept-visual { max-width:540px; }
   .products-grid { grid-template-columns:repeat(2,1fr); }
   .blog-grid { grid-template-columns:1fr 1fr; }
-  .blog-grid .b-card:nth-child(3) { display:none; }
   .exp-grid { grid-template-columns:1fr; gap:52px; }
   .contact-grid { grid-template-columns:1fr; gap:52px; }
-  .footer-top { grid-template-columns:1fr 1fr; gap:44px; }
   #salon { height:360px; }
 }
 </style>
@@ -601,7 +188,7 @@ footer { background:#040302; border-top:1px solid rgba(192,154,98,.14); padding:
 <div id="age-gate">
   <div class="ag-box">
     <div class="ag-logo">EPICUR</div>
-    <div class="ag-city">Concept &middot; Santo Domingo</div>
+    <div class="ag-city" id="ag-city">Concept &middot; Santo Domingo</div>
     <p class="ag-q">&iquest;Eres mayor de edad para consumir estos productos en tu pa&iacute;s?</p>
     <p class="ag-sub">Cigarros &middot; Rones &middot; Cervezas</p>
     <div class="ag-btns">
@@ -614,40 +201,36 @@ footer { background:#040302; border-top:1px solid rgba(192,154,98,.14); padding:
 <!-- MOBILE MENU -->
 <div id="mob-menu">
   <button class="mob-close" onclick="closeMenu()">&times;</button>
-  <a href="#inicio"   onclick="closeMenu()">Inicio</a>
-  <a href="#catalogo" onclick="closeMenu()">Cat&aacute;logo</a>
-  <a href="#blog"     onclick="closeMenu()">Blog</a>
+  <a href="index.html" onclick="closeMenu()">Inicio</a>
+  <a href="catalogo/catalogo.html" onclick="closeMenu()">Cat&aacute;logo</a>
+  <a href="blog/blog.html" onclick="closeMenu()">Blog</a>
   <a href="#contacto" onclick="closeMenu()">Contacto</a>
 </div>
 
 <!-- NAV -->
 <nav id="navbar">
-  <a href="#inicio" class="nav-logo">EPICUR</a>
+  <a href="index.html" class="nav-logo">EPICUR</a>
   <ul class="nav-links">
-    <li><a href="#inicio">Inicio</a></li>
-    <li><a href="#catalogo">Cat&aacute;logo</a></li>
-    <li><a href="#blog">Blog</a></li>
+    <li><a href="index.html" class="active">Inicio</a></li>
+    <li><a href="catalogo/catalogo.html">Cat&aacute;logo</a></li>
+    <li><a href="blog/blog.html">Blog</a></li>
     <li><a href="#contacto">Contacto</a></li>
   </ul>
-  <button class="hamburger" id="menuBtn" onclick="toggleMenu()" aria-label="Men&uacute;">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Men&uacute;"><span></span><span></span><span></span></button>
 </nav>
 
 <!-- HERO -->
 <section id="inicio">
   <div id="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-photo"></div>
-    <div class="hero-vignette"></div>
-    <div class="hero-grain"></div>
+    <div class="hero-bg"></div><div class="hero-photo"></div>
+    <div class="hero-vignette"></div><div class="hero-grain"></div>
     <div class="hero-content">
-      <div class="hero-eyebrow">Santo Domingo &middot; Rep&uacute;blica Dominicana</div>
-      <h1 class="hero-title">Un rinc&oacute;n para<br><em>los sentidos</em></h1>
-      <p class="hero-sub">Cigarros, rones, caf&eacute; de origen y m&aacute;s, reunidos en una experiencia pensada para disfrutar con calma.</p>
+      <div class="hero-eyebrow" id="heroEyebrow">Santo Domingo &middot; Rep&uacute;blica Dominicana</div>
+      <h1 class="hero-title" id="heroTitle">Un rinc&oacute;n para<br><em>los sentidos</em></h1>
+      <p class="hero-sub" id="heroSub">Cigarros, rones, caf&eacute; y m&aacute;s, reunidos en una experiencia pensada para disfrutar con calma.</p>
       <div class="hero-btns">
-        <a href="#catalogo" class="btn-gold">Explorar cat&aacute;logo</a>
-        <a href="#concept"  class="btn-outline">Conocer la historia</a>
+        <a href="catalogo/catalogo.html" class="btn-gold" id="heroBtnP">Explorar cat&aacute;logo</a>
+        <a href="#concept" class="btn-outline" id="heroBtnS">Conocer la historia</a>
       </div>
     </div>
     <div class="hero-scroll"><span>Descubrir</span><div class="scroll-bar"></div></div>
@@ -660,113 +243,37 @@ footer { background:#040302; border-top:1px solid rgba(192,154,98,.14); padding:
     <div class="reveal">
       <span class="sec-label">El arte de disfrutar con intenci&oacute;n</span>
       <div class="sec-rule"></div>
-      <h2 class="concept-title">Cada producto<br>tiene una <em>historia</em></h2>
-      <p class="concept-text">Cada producto ha sido seleccionado para acompa&ntilde;ar momentos de pausa, conversaci&oacute;n y reflexi&oacute;n. Desde un cigarro de car&aacute;cter profundo hasta un caf&eacute; colombiano de origen premium, aqu&iacute; cada detalle tiene una historia.</p>
-      <p class="concept-text">No somos una tienda. Somos una experiencia curada para quienes aprecian lo aut&eacute;ntico, lo artesanal y lo que perdura en el tiempo.</p>
-      <a href="#catalogo" class="btn-gold">Ver la colecci&oacute;n</a>
+      <h2 class="concept-title" id="conceptTitle">Cada producto tiene una <em>historia</em></h2>
+      <p class="concept-text" id="conceptText1"></p>
+      <p class="concept-text" id="conceptText2"></p>
+      <a href="catalogo/catalogo.html" class="btn-gold">Ver la colecci&oacute;n</a>
       <div class="concept-stats">
-        <div class="cs-item"><div class="cs-num">8+</div><div class="cs-lbl">Marcas curadas</div></div>
-        <div class="cs-item"><div class="cs-num">5</div><div class="cs-lbl">Categor&iacute;as</div></div>
-        <div class="cs-item"><div class="cs-num">RD</div><div class="cs-lbl">Santo Domingo</div></div>
+        <div class="cs-item"><div class="cs-num" id="stat1n">8+</div><div class="cs-lbl" id="stat1l">Marcas curadas</div></div>
+        <div class="cs-item"><div class="cs-num" id="stat2n">5</div><div class="cs-lbl" id="stat2l">Categor&iacute;as</div></div>
+        <div class="cs-item"><div class="cs-num" id="stat3n">RD</div><div class="cs-lbl" id="stat3l">Santo Domingo</div></div>
       </div>
     </div>
     <div class="concept-visual reveal d1">
-      <img src="img_jack_honey2.png" alt="Jack Daniel's Tennessee Honey con cigarros Most Wanted">
+      <img src="images/img_jack_honey2.png" alt="Epicur Concept">
       <div class="concept-badge">&ldquo;El ritual<br>del tiempo.&rdquo;</div>
     </div>
   </div>
 </section>
 
-<!-- CATALOG -->
+<!-- CATALOG PREVIEW -->
 <section id="catalogo">
   <div class="cat-header reveal">
     <div>
       <span class="cat-label">Obras seleccionadas</span>
       <h2 class="cat-title">Cat&aacute;logo premium</h2>
     </div>
-    <div class="filter-row" id="filterTabs">
-      <button class="f-tab active" data-cat="all">Todos</button>
-      <button class="f-tab" data-cat="cigarros">Cigarros</button>
-      <button class="f-tab" data-cat="rones">Rones</button>
-      <button class="f-tab" data-cat="cafe">Caf&eacute;</button>
-    </div>
+    <a href="catalogo/catalogo.html" class="btn-outline" style="padding:10px 28px;font-size:.55rem">Ver todo</a>
   </div>
   <div class="products-grid" id="productsGrid">
-
-    <div class="p-card reveal" data-cat="cigarros">
-      <img src="img_most_wanted_2.png" alt="Most Wanted Linga Cigars">
-      <div class="p-overlay"></div>
-      <div class="p-num">01</div><div class="p-tag">Cigarros</div>
-      <div class="p-info">
-        <div class="p-origin">Linga Cigars &middot; Dead or Alive</div>
-        <div class="p-name">Most Wanted</div>
-        <div class="p-desc">Car&aacute;cter audaz, combusti&oacute;n pareja y sabor que no se olvida. Formato robusto con capa natural de largo a&ntilde;ejamiento.</div>
-        <a href="#contacto" class="btn-card">Consultar disponibilidad</a>
-      </div>
-    </div>
-
-    <div class="p-card reveal d1" data-cat="cigarros">
-      <img src="img_cao_box2.png" alt="CAO Brazilia Gol">
-      <div class="p-overlay"></div>
-      <div class="p-num">02</div><div class="p-tag">Cigarros</div>
-      <div class="p-info">
-        <div class="p-origin">Brasil &middot; CAO &middot; Edici&oacute;n Gol!</div>
-        <div class="p-name">CAO Brazilia</div>
-        <div class="p-desc">Capa brasile&ntilde;a oscura con notas de caf&eacute;, tierra y dulzura tropical. Una experiencia &uacute;nica del Nuevo Mundo.</div>
-        <a href="#contacto" class="btn-card">Consultar disponibilidad</a>
-      </div>
-    </div>
-
-    <div class="p-card reveal d2" data-cat="cigarros">
-      <img src="img_new_world2.png" alt="New World Dorado AJ Fernandez">
-      <div class="p-overlay"></div>
-      <div class="p-num">03</div><div class="p-tag">Cigarros</div>
-      <div class="p-info">
-        <div class="p-origin">AJ Fern&aacute;ndez &middot; Nicaragua</div>
-        <div class="p-name">New World Dorado</div>
-        <div class="p-desc">En tubo con cinta dorada. Suave, cremoso y elegante. Ideal para el aficionado que aprecia los detalles.</div>
-        <a href="#contacto" class="btn-card">Consultar disponibilidad</a>
-      </div>
-    </div>
-
-    <div class="p-card reveal" data-cat="rones">
-      <img src="img_ron_1903.png" alt="Ron E Leon Jimenes 1903">
-      <div class="p-overlay"></div>
-      <div class="p-num">04</div><div class="p-tag">Rones</div>
-      <div class="p-info">
-        <div class="p-origin">E. Le&oacute;n Jimenes &middot; Rep. Dominicana</div>
-        <div class="p-name">Ron 1903</div>
-        <div class="p-desc">Ron dominicano de car&aacute;cter. A&ntilde;ejado en barricas de roble americano con notas de vainilla, caramelo y madera fina.</div>
-        <a href="#contacto" class="btn-card">Consultar disponibilidad</a>
-      </div>
-    </div>
-
-    <div class="p-card reveal d1" data-cat="cafe">
-      <img src="img_cafe_colina.png" alt="Juan Valdez Cafe Colina">
-      <div class="p-overlay"></div>
-      <div class="p-num">05</div><div class="p-tag">Caf&eacute;</div>
-      <div class="p-info">
-        <div class="p-origin">Colombia &middot; Juan Valdez &middot; Premium</div>
-        <div class="p-name">Caf&eacute; Colina</div>
-        <div class="p-desc">Balanceado con notas dulces de durazno y chocolate blanco. Textura sedosa y perfil suave.</div>
-        <div class="p-price">RD$495.00</div>
-        <a href="#contacto" class="btn-card">Consultar disponibilidad</a>
-      </div>
-    </div>
-
-    <div class="p-card reveal d2" data-cat="cafe">
-      <img src="img_cafe_cumbre.jpg" alt="Juan Valdez Cafe Cumbre">
-      <div class="p-overlay"></div>
-      <div class="p-num">06</div><div class="p-tag">Caf&eacute;</div>
-      <div class="p-info">
-        <div class="p-origin">Colombia &middot; Juan Valdez &middot; Premium</div>
-        <div class="p-name">Caf&eacute; Cumbre</div>
-        <div class="p-desc">Car&aacute;cter fuerte, notas de uva semiseca, cacao y t&eacute;. Sabor prolongado y presencia profunda.</div>
-        <div class="p-price">RD$495.00</div>
-        <a href="#contacto" class="btn-card">Consultar disponibilidad</a>
-      </div>
-    </div>
-
+    <!-- skeleton -->
+    <div class="p-card"><div class="skeleton" style="width:100%;height:100%"></div></div>
+    <div class="p-card"><div class="skeleton" style="width:100%;height:100%"></div></div>
+    <div class="p-card"><div class="skeleton" style="width:100%;height:100%"></div></div>
   </div>
 </section>
 
@@ -776,8 +283,8 @@ footer { background:#040302; border-top:1px solid rgba(192,154,98,.14); padding:
   <div class="quote-inner reveal">
     <div class="q-rule-top"></div>
     <span class="q-mark">&ldquo;</span>
-    <p class="q-text">Nadie puede hacerte sentir inferior sin tu consentimiento.</p>
-    <div class="q-author">Eleanor Roosevelt</div>
+    <p class="q-text" id="quoteText">Nadie puede hacerte sentir inferior sin tu consentimiento.</p>
+    <div class="q-author" id="quoteAuthor">Eleanor Roosevelt</div>
     <div class="q-rule-bot"></div>
   </div>
 </section>
@@ -790,98 +297,31 @@ footer { background:#040302; border-top:1px solid rgba(192,154,98,.14); padding:
       <div class="sec-rule"></div>
       <p class="exp-pull">Productos que invitan a detenerse, respirar y saborear el momento.</p>
     </div>
-    <div class="exp-items">
-      <div class="exp-item reveal">
-        <div class="exp-line"></div>
-        <div class="exp-item-title">Selecci&oacute;n curada</div>
-        <div class="exp-item-text">Cada producto elegido con criterio, historia y prop&oacute;sito sensorial.</div>
-      </div>
-      <div class="exp-item reveal d1">
-        <div class="exp-line"></div>
-        <div class="exp-item-title">Regalos premium</div>
-        <div class="exp-item-text">Cajas de regalo para ocasiones que merecen ser recordadas.</div>
-      </div>
-      <div class="exp-item reveal d2">
-        <div class="exp-line"></div>
-        <div class="exp-item-title">Natural y artesanal</div>
-        <div class="exp-item-text">Productos de origen trazable y elaboraci&oacute;n artesanal.</div>
-      </div>
-      <div class="exp-item reveal d3">
-        <div class="exp-line"></div>
-        <div class="exp-item-title">Asesor&iacute;a personal</div>
-        <div class="exp-item-text">Te ayudamos a elegir el producto ideal para cada momento.</div>
-      </div>
+    <div class="exp-items" id="expItems">
+      <div class="exp-item reveal"><div class="exp-line"></div><div class="exp-item-title">Selecci&oacute;n curada</div><div class="exp-item-text">Cada producto elegido con criterio e historia.</div></div>
+      <div class="exp-item reveal d1"><div class="exp-line"></div><div class="exp-item-title">Regalos premium</div><div class="exp-item-text">Cajas para ocasiones que merecen ser recordadas.</div></div>
+      <div class="exp-item reveal d2"><div class="exp-line"></div><div class="exp-item-title">Natural y artesanal</div><div class="exp-item-text">Productos de origen trazable y elaboraci&oacute;n cuidada.</div></div>
+      <div class="exp-item reveal d3"><div class="exp-line"></div><div class="exp-item-title">Asesor&iacute;a personal</div><div class="exp-item-text">Te ayudamos a elegir el producto ideal.</div></div>
     </div>
   </div>
 </section>
 
 <!-- SALON -->
 <div id="salon">
-  <div class="s-panel">
-    <img src="img_salon1.png" alt="El espacio Epicur Concept Santo Domingo">
-    <div class="s-label"><span>El espacio</span><h3>El sal&oacute;n del coleccionista</h3></div>
-  </div>
-  <div class="s-panel">
-    <img src="img_salon2.png" alt="La atmosfera Epicur Concept">
-    <div class="s-label"><span>La atm&oacute;sfera</span><h3>Arte, libros y tabaco</h3></div>
-  </div>
+  <div class="s-panel"><img src="images/img_salon1.png" alt="El espacio Epicur"><div class="s-label"><span>El espacio</span><h3>El sal&oacute;n del coleccionista</h3></div></div>
+  <div class="s-panel"><img src="images/img_salon2.png" alt="La atmosfera Epicur"><div class="s-label"><span>La atm&oacute;sfera</span><h3>Arte, libros y tabaco</h3></div></div>
 </div>
 
-<!-- BLOG -->
+<!-- BLOG PREVIEW -->
 <section id="blog">
   <div class="blog-header reveal">
-    <span class="sec-label">Editorial</span>
-    <h2 class="blog-title">Cultura &amp; Experiencia</h2>
+    <div><span class="sec-label">Editorial</span><h2 class="blog-title">Cultura &amp; Experiencia</h2></div>
+    <a href="blog/blog.html" class="btn-outline" style="padding:10px 28px;font-size:.55rem">Ver todos</a>
   </div>
-  <div class="blog-grid">
-    <div class="b-card reveal">
-      <div class="b-img"><img src="img_most_wanted_2.png" alt="Most Wanted cigarros"><div class="b-cat">Cultura del Cigarro</div></div>
-      <div class="b-body">
-        <div class="b-name">C&oacute;mo elegir un cigarro seg&uacute;n el momento</div>
-        <div class="b-excerpt">No todos los momentos piden el mismo cigarro. Aprende a leer el ambiente y elegir la vitola correcta.</div>
-        <button class="b-read">Leer m&aacute;s</button>
-      </div>
-    </div>
-    <div class="b-card reveal d1">
-      <div class="b-img"><img src="img_ron_1903.png" alt="Ron dominicano 1903"><div class="b-cat">Rones &amp; Destilados</div></div>
-      <div class="b-body">
-        <div class="b-name">Ron y conversaci&oacute;n: el arte de una noche lenta</div>
-        <div class="b-excerpt">Algunas noches no tienen prisa. C&oacute;mo un buen ron transforma una conversaci&oacute;n en un recuerdo.</div>
-        <button class="b-read">Leer m&aacute;s</button>
-      </div>
-    </div>
-    <div class="b-card reveal d2">
-      <div class="b-img"><img src="img_jack_honey2.png" alt="Jack Daniels Honey maridaje"><div class="b-cat">Maridajes</div></div>
-      <div class="b-body">
-        <div class="b-name">El arte del maridaje: whiskey y cigarro</div>
-        <div class="b-excerpt">La combinaci&oacute;n perfecta no es casualidad. Por qu&eacute; el Tennessee Honey y el Most Wanted funcionan tan bien.</div>
-        <button class="b-read">Leer m&aacute;s</button>
-      </div>
-    </div>
-    <div class="b-card reveal">
-      <div class="b-img"><img src="img_new_world2.png" alt="New World Dorado regalo"><div class="b-cat">Gu&iacute;as de Regalo</div></div>
-      <div class="b-body">
-        <div class="b-name">Regalos premium para personas de buen gusto</div>
-        <div class="b-excerpt">Regalar bien es un arte. Selecciones curadas que dicen algo sobre quien las elige y quien las recibe.</div>
-        <button class="b-read">Leer m&aacute;s</button>
-      </div>
-    </div>
-    <div class="b-card reveal d1">
-      <div class="b-img"><img src="img_cafe_colina.png" alt="Cafe Juan Valdez Colina"><div class="b-cat">Sabores Naturales</div></div>
-      <div class="b-body">
-        <div class="b-name">Caf&eacute; colombiano: el inicio perfecto de cualquier ritual</div>
-        <div class="b-excerpt">Un espresso Colina antes del primer corte. El ritual de los que saben c&oacute;mo comenzar el d&iacute;a.</div>
-        <button class="b-read">Leer m&aacute;s</button>
-      </div>
-    </div>
-    <div class="b-card reveal d2">
-      <div class="b-img"><img src="img_cao_box2.png" alt="CAO Brazilia cultura cigarro"><div class="b-cat">Cultura del Cigarro</div></div>
-      <div class="b-body">
-        <div class="b-name">CAO Brazilia: cuando Brasil se convierte en tabaco</div>
-        <div class="b-excerpt">La hoja brasile&ntilde;a tiene una personalidad inconfundible. Oscura, expresiva y llena de matices tropicales.</div>
-        <button class="b-read">Leer m&aacute;s</button>
-      </div>
-    </div>
+  <div class="blog-grid" id="blogGrid">
+    <div class="b-card"><div class="b-img skeleton" style="aspect-ratio:16/10"></div><div class="b-body"><div class="skeleton" style="height:14px;margin-bottom:10px;width:60%"></div><div class="skeleton" style="height:14px;width:90%"></div></div></div>
+    <div class="b-card"><div class="b-img skeleton" style="aspect-ratio:16/10"></div><div class="b-body"><div class="skeleton" style="height:14px;margin-bottom:10px;width:60%"></div><div class="skeleton" style="height:14px;width:90%"></div></div></div>
+    <div class="b-card"><div class="b-img skeleton" style="aspect-ratio:16/10"></div><div class="b-body"><div class="skeleton" style="height:14px;margin-bottom:10px;width:60%"></div><div class="skeleton" style="height:14px;width:90%"></div></div></div>
   </div>
 </section>
 
@@ -890,41 +330,38 @@ footer { background:#040302; border-top:1px solid rgba(192,154,98,.14); padding:
   <div class="contact-grid">
     <div class="reveal">
       <span class="sec-label">Contacto</span>
-      <h2 class="contact-title">&iquest;Buscas una selecci&oacute;n especial o deseas consultar <em>disponibilidad</em>?</h2>
-      <a href="https://wa.me/18091234567" class="wa-btn" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      <h2 class="contact-title" id="ctcTitle">&iquest;Buscas una selecci&oacute;n especial o deseas consultar <em>disponibilidad</em>?</h2>
+      <a href="#" class="wa-btn" id="ctcWaBtn" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
         Escribir por WhatsApp
       </a>
       <div class="c-detail">
         <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="var(--gold)" stroke="none"/></svg></div>
-        <div><div class="c-lbl">Ubicaci&oacute;n</div><div class="c-val">Santo Domingo, Rep&uacute;blica Dominicana</div></div>
+        <div><div class="c-lbl">Ubicaci&oacute;n</div><div class="c-val" id="ctcUbicacion">Santo Domingo, Rep&uacute;blica Dominicana</div></div>
       </div>
       <div class="c-detail">
         <div class="c-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg></div>
-        <div><div class="c-lbl">Horario</div><div class="c-val">Lunes &mdash; S&aacute;bado: 10:00am &ndash; 8:00pm<br>Domingos: 11:00am &ndash; 5:00pm</div></div>
+        <div><div class="c-lbl">Horario</div><div class="c-val" id="ctcHorario">Lun&mdash;S&aacute;b: 10:00am &ndash; 8:00pm</div></div>
       </div>
       <div class="c-detail">
         <div class="c-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
-        <div><div class="c-lbl">Instagram</div><div class="c-val">@epicurconcept</div></div>
+        <div><div class="c-lbl">Instagram</div><div class="c-val" id="ctcInstagram">@epicurconcept</div></div>
       </div>
     </div>
     <div class="reveal d1">
       <label class="f-label">Nombre completo</label>
-      <input type="text" class="f-input" placeholder="Tu nombre">
+      <input type="text" class="f-input" placeholder="Tu nombre" id="formNombre">
       <label class="f-label">Tel&eacute;fono</label>
-      <input type="tel" class="f-input" placeholder="+1 (809) 000-0000">
+      <input type="tel" class="f-input" placeholder="+1 (809) 000-0000" id="formTel">
       <label class="f-label">Producto de inter&eacute;s</label>
-      <select class="f-select">
+      <select class="f-select" id="formProducto">
         <option value="">Seleccionar categor&iacute;a</option>
-        <option>Cigarros</option>
-        <option>Rones</option>
-        <option>Caf&eacute; Juan Valdez</option>
-        <option>Caja de regalo</option>
-        <option>Otro</option>
+        <option>Cigarros</option><option>Rones</option>
+        <option>Caf&eacute;</option><option>Caja de regalo</option><option>Otro</option>
       </select>
       <label class="f-label">Mensaje</label>
-      <textarea class="f-area" placeholder="Cu&eacute;ntanos qu&eacute; est&aacute;s buscando..."></textarea>
-      <button class="btn-submit" onclick="handleForm()">Enviar consulta</button>
+      <textarea class="f-area" placeholder="Cu&eacute;ntanos qu&eacute; est&aacute;s buscando..." id="formMensaje"></textarea>
+      <button class="btn-submit" onclick="sendWA()">Enviar consulta</button>
     </div>
   </div>
 </section>
@@ -935,100 +372,165 @@ footer { background:#040302; border-top:1px solid rgba(192,154,98,.14); padding:
     <div class="footer-top">
       <div>
         <div class="f-logo">EPICUR</div>
-        <p class="f-tagline">Un rinc&oacute;n para los sentidos. Cigarros, rones, caf&eacute; y m&aacute;s, reunidos en una experiencia boutique pensada para disfrutar con calma. Santo Domingo, Rep&uacute;blica Dominicana.</p>
+        <p class="f-tagline" id="fTagline">Un rinc&oacute;n para los sentidos. Santo Domingo, Rep&uacute;blica Dominicana.</p>
         <div class="f-social">
-          <a href="#" title="Instagram">Ig</a>
-          <a href="#" title="Facebook">Fb</a>
-          <a href="https://wa.me/18091234567" title="WhatsApp">Wa</a>
+          <a href="#" id="fIg" title="Instagram">Ig</a>
+          <a href="#" id="fFb" title="Facebook">Fb</a>
+          <a href="#" id="fWa" data-wa title="WhatsApp">Wa</a>
         </div>
       </div>
       <div>
         <div class="f-col-title">Cat&aacute;logo</div>
         <ul class="f-links">
-          <li><a href="#catalogo">Cigarros</a></li>
-          <li><a href="#catalogo">Rones</a></li>
-          <li><a href="#catalogo">Caf&eacute; Premium</a></li>
-          <li><a href="#catalogo">Cervezas</a></li>
+          <li><a href="catalogo/catalogo.html">Todos los productos</a></li>
+          <li><a href="catalogo/catalogo.html?cat=cigarros">Cigarros</a></li>
+          <li><a href="catalogo/catalogo.html?cat=rones">Rones</a></li>
+          <li><a href="catalogo/catalogo.html?cat=cafe">Caf&eacute;</a></li>
         </ul>
       </div>
       <div>
         <div class="f-col-title">Editorial</div>
         <ul class="f-links">
-          <li><a href="#blog">Cultura del Cigarro</a></li>
-          <li><a href="#blog">Rones &amp; Destilados</a></li>
-          <li><a href="#blog">Maridajes</a></li>
-          <li><a href="#blog">Gu&iacute;as de Regalo</a></li>
+          <li><a href="blog/blog.html">Todos los art&iacute;culos</a></li>
         </ul>
       </div>
       <div>
         <div class="f-col-title">Informaci&oacute;n</div>
         <ul class="f-links">
-          <li><a href="#concept">Nuestra historia</a></li>
-          <li><a href="#contacto">Contacto</a></li>
           <li><a href="#">Pol&iacute;tica de privacidad</a></li>
           <li><a href="#">Consumo responsable</a></li>
+          <li><a href="#contacto">Contacto</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="f-copy">&copy; 2026 EPICUR CONCEPT &middot; Santo Domingo &middot; Todos los derechos reservados</div>
+      <div class="f-copy" id="fCopy">&copy; 2026 EPICUR CONCEPT &middot; Santo Domingo</div>
       <div class="f-warning">El consumo de alcohol y tabaco debe realizarse de manera responsable. Venta exclusiva para mayores de edad.</div>
     </div>
   </div>
 </footer>
 
-<!-- FLOATING WA -->
-<a href="https://wa.me/18091234567" id="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+<a href="#" id="wa-float" data-wa aria-label="WhatsApp">
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
 </a>
 
+<script src="js/sheets.js"></script>
+<script src="js/global.js"></script>
 <script>
-  // Age gate
+  // ── Age gate ──────────────────────────────
   document.body.style.overflow = 'hidden';
   function enterSite() {
     const g = document.getElementById('age-gate');
-    g.style.transition = 'opacity .7s ease';
-    g.style.opacity = '0';
+    g.style.transition = 'opacity .7s ease'; g.style.opacity = '0';
     setTimeout(() => { g.style.display = 'none'; document.body.style.overflow = ''; }, 700);
   }
 
-  // Navbar
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 60); });
+  // ── Load all CMS data ─────────────────────
+  async function loadPage() {
+    try {
+      const [cfg, hero, ctc, frase, productos, articulos] = await Promise.all([
+        EpicurCMS.getConfig(),
+        EpicurCMS.getHero(),
+        EpicurCMS.getContacto(),
+        EpicurCMS.getFraseAleatoria(),
+        EpicurCMS.getCatalogo(),
+        EpicurCMS.getBlog()
+      ]);
 
-  // Mobile menu
-  let menuOpen = false;
-  function toggleMenu() {
-    menuOpen = !menuOpen;
-    document.getElementById('mob-menu').classList.toggle('open', menuOpen);
-    document.body.style.overflow = menuOpen ? 'hidden' : '';
+      // Config
+      const wa = ctc.whatsapp || cfg.whatsapp;
+      document.title = `${cfg.nombre} — Un rincón para los sentidos`;
+      document.querySelectorAll('[data-wa]').forEach(el => el.href = `https://wa.me/${wa}`);
+      document.getElementById('fCopy').textContent = `© ${cfg.anio} ${cfg.nombre} · ${cfg.ciudad}`;
+      if (cfg.instagram) document.getElementById('fIg').href = `https://instagram.com/${cfg.instagram.replace('@','')}`;
+      if (cfg.facebook)  document.getElementById('fFb').href = cfg.facebook;
+      document.getElementById('fWa').href = `https://wa.me/${wa}`;
+
+      // Hero
+      document.getElementById('heroEyebrow').textContent = hero.eyebrow;
+      document.getElementById('heroTitle').innerHTML = hero.titulo.replace(' para', '<br>para');
+      document.getElementById('heroSub').textContent = hero.subtitulo;
+      if (hero.btn_principal)  document.getElementById('heroBtnP').textContent = hero.btn_principal;
+      if (hero.btn_secundario) document.getElementById('heroBtnS').textContent = hero.btn_secundario;
+
+      // Concept
+      const ct = hero.concepto_titulo.split(' una ');
+      document.getElementById('conceptTitle').innerHTML = ct.length > 1
+        ? `${ct[0]} una <em>${ct[1]}</em>` : hero.concepto_titulo;
+      if (hero.concepto_texto1) document.getElementById('conceptText1').textContent = hero.concepto_texto1;
+      if (hero.concepto_texto2) document.getElementById('conceptText2').textContent = hero.concepto_texto2;
+      document.getElementById('stat1n').textContent = hero.stat1_num;
+      document.getElementById('stat1l').textContent = hero.stat1_lbl;
+      document.getElementById('stat2n').textContent = hero.stat2_num;
+      document.getElementById('stat2l').textContent = hero.stat2_lbl;
+      document.getElementById('stat3n').textContent = hero.stat3_num;
+      document.getElementById('stat3l').textContent = hero.stat3_lbl;
+
+      // Quote
+      document.getElementById('quoteText').textContent = frase.texto;
+      document.getElementById('quoteAuthor').textContent = frase.autor;
+
+      // Contact
+      document.getElementById('ctcTitle').innerHTML = ctc.titulo;
+      document.getElementById('ctcWaBtn').href = `https://wa.me/${wa}`;
+      document.getElementById('ctcUbicacion').textContent = ctc.ubicacion;
+      document.getElementById('ctcHorario').textContent = ctc.horario;
+      document.getElementById('ctcInstagram').textContent = ctc.instagram;
+
+      // Catalog preview (top 6 destacados)
+      const top = productos.slice(0, 6);
+      const catLabels = { cigarros:'Cigarros', rones:'Rones', cafe:'Café', cervezas:'Cervezas', frutos:'Frutos Secos', miel:'Miel' };
+      document.getElementById('productsGrid').innerHTML = top.map((p, i) => `
+        <div class="p-card reveal">
+          <img src="${p.imagen.startsWith('http') ? p.imagen : 'images/' + p.imagen.split('/').pop()}" alt="${p.nombre}" loading="lazy">
+          <div class="p-overlay"></div>
+          <div class="p-num">0${i+1}</div>
+          <div class="p-tag">${catLabels[p.categoria] || p.categoria}</div>
+          <div class="p-info">
+            <div class="p-origin">${p.origen}</div>
+            <div class="p-name">${p.nombre}</div>
+            <div class="p-desc">${p.descripcion}</div>
+            ${p.precio ? `<div class="p-price">${p.precio}</div>` : ''}
+            <a href="https://wa.me/${wa}?text=${encodeURIComponent('Hola, me interesa: ' + p.nombre)}" class="btn-card" target="_blank">Consultar</a>
+          </div>
+        </div>
+      `).join('');
+
+      // Blog preview (top 3)
+      document.getElementById('blogGrid').innerHTML = articulos.slice(0, 3).map(a => `
+        <div class="b-card reveal" onclick="location.href='blog/articulo.html?id=${a.id}'">
+          <div class="b-img">
+            <img src="${a.imagen.startsWith('http') ? a.imagen : 'images/' + a.imagen.split('/').pop()}" alt="${a.titulo}" loading="lazy">
+            <div class="b-cat-badge">${a.categoria}</div>
+          </div>
+          <div class="b-body">
+            <div class="b-name">${a.titulo}</div>
+            <div class="b-excerpt">${a.extracto}</div>
+            <button class="b-read">Leer m&aacute;s</button>
+          </div>
+        </div>
+      `).join('');
+
+      initReveal();
+
+    } catch(err) {
+      console.error('[Epicur] Error cargando CMS:', err);
+    }
   }
-  function closeMenu() {
-    menuOpen = false;
-    document.getElementById('mob-menu').classList.remove('open');
-    document.body.style.overflow = '';
+
+  // ── Contact form → WhatsApp ───────────────
+  function sendWA() {
+    const n = document.getElementById('formNombre').value;
+    const t = document.getElementById('formTel').value;
+    const p = document.getElementById('formProducto').value;
+    const m = document.getElementById('formMensaje').value;
+    if (!n) { alert('Por favor ingresa tu nombre.'); return; }
+    const msg = `Hola, soy ${n}${t ? ' (' + t + ')' : ''}.\nProducto de interés: ${p || 'General'}\n${m}`;
+    const wa = document.getElementById('ctcWaBtn').href;
+    window.open(`${wa}?text=${encodeURIComponent(msg)}`, '_blank');
   }
 
-  // Catalog filter
-  document.querySelectorAll('.f-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.f-tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      const cat = tab.dataset.cat;
-      document.querySelectorAll('.p-card').forEach(card => {
-        card.style.display = (cat === 'all' || card.dataset.cat === cat) ? 'block' : 'none';
-      });
-    });
-  });
-
-  // Scroll reveal
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-  // Form
-  function handleForm() { alert('Gracias por tu consulta. Te responderemos pronto por WhatsApp.'); }
+  loadPage();
 </script>
 </body>
 </html>
